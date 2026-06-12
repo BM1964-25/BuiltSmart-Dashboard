@@ -36,6 +36,9 @@
   --c-kosten:   #1755A6;
   --c-komm:     #5C3FA3;
   --c-karriere: #9E2F6E;
+  --c-websites: #B8882A;
+  --c-berichte: #2E7D6E;
+  --c-vortraege: #6B3FA0;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -112,6 +115,11 @@ body {
   opacity: .7;
 }
 
+
+.nav-pub-spacer {
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin: 12px 0 4px;
+}
 /* search */
 .sidebar-search {
   padding: 20px 16px 10px;
@@ -304,6 +312,8 @@ body {
   font-weight: 500;
 }
 
+
+
 .topbar-pills {
   display: flex;
   align-items: center;
@@ -343,7 +353,7 @@ body {
 /* stats strip */
 .stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
   margin-bottom: 36px;
 }
@@ -368,7 +378,9 @@ body {
 .stat-card.s-total::after  { background: var(--navy3); }
 .stat-card.s-apps::after   { background: var(--gold); }
 .stat-card.s-lps::after    { background: var(--c-content); }
-.stat-card.s-cats::after   { background: var(--c-komm); }
+.stat-card.s-cats::after      { background: var(--c-komm); }
+.stat-card.s-berichte::after  { background: var(--c-berichte); }
+.stat-card.s-vortraege::after { background: var(--c-vortraege); }
 
 .stat-label {
   font-size: 10.5px;
@@ -455,6 +467,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.app-card-placeholder {
+  border-style: dashed;
+  opacity: .6;
+}
+
+.placeholder-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 4px;
 }
 
 .app-card:hover {
@@ -712,11 +736,11 @@ body {
   </div>
 
   <nav class="nav-section">
-    <div class="nav-label">Kategorien</div>
+    <div class="nav-label">BuiltSmart Apps</div>
     <div class="nav-item active" data-cat="all" onclick="setCategory(this,'all')">
       <span class="nav-dot" style="background:var(--gold)"></span>
-      Alle Produkte
-      <span class="nav-count" id="cnt-all">27</span>
+      Alle Apps
+      <span class="nav-count" id="cnt-all">19</span>
     </div>
     <div class="nav-item" data-cat="risiko" onclick="setCategory(this,'risiko')">
       <span class="nav-dot" style="background:var(--c-risiko)"></span>
@@ -745,7 +769,33 @@ body {
     </div>
   </nav>
 
-  <div class="nav-spacer"></div>
+  <div class="nav-pub-spacer"></div>
+
+  <nav class="nav-section">
+    <div class="nav-label">Websites · Berichte · Vorträge</div>
+    <div class="nav-item" data-cat="pub-all" onclick="setCategory(this,'pub-all')">
+      <span class="nav-dot" style="background:var(--gold)"></span>
+      Alle
+      <span class="nav-count" id="cnt-pub-all">0</span>
+    </div>
+    <div class="nav-item" data-cat="websites" onclick="setCategory(this,'websites')">
+      <span class="nav-dot" style="background:#C9A84C"></span>
+      Websites
+      <span class="nav-count" id="cnt-websites">3</span>
+    </div>
+    <div class="nav-item" data-cat="berichte" onclick="setCategory(this,'berichte')">
+      <span class="nav-dot" style="background:var(--c-berichte)"></span>
+      Geschäftsberichte
+      <span class="nav-count" id="cnt-berichte">0</span>
+    </div>
+    <div class="nav-item" data-cat="vortraege" onclick="setCategory(this,'vortraege')">
+      <span class="nav-dot" style="background:var(--c-vortraege)"></span>
+      Vorträge
+      <span class="nav-count" id="cnt-vortraege">0</span>
+    </div>
+  </nav>
+
+<div class="nav-spacer"></div>
 
   <nav class="nav-section nav-section-homepages">
     <div class="nav-label">Homepages</div>
@@ -787,10 +837,14 @@ body {
       </div>
     </div>
     <div class="topbar-pills">
-      <button class="type-pill active" data-type="all" onclick="setType(this,'all')">Alle</button>
-      <button class="type-pill" data-type="app" onclick="setType(this,'app')">Apps</button>
-      <button class="type-pill" data-type="lp" onclick="setType(this,'lp')">Landingpages</button>
-    </div>
+        <button class="type-pill active" data-type="all"       onclick="setType(this,'all')">Alle</button>
+        <button class="type-pill" data-type="app"              onclick="setType(this,'app')">Apps</button>
+        <button class="type-pill" data-type="lp"               onclick="setType(this,'lp')">Landingpages</button>
+        <button class="type-pill" data-type="website"          onclick="setType(this,'website')">Websites</button>
+        <button class="type-pill" data-type="berichte"         onclick="setType(this,'berichte')">Berichte</button>
+        <button class="type-pill" data-type="vortraege"        onclick="setType(this,'vortraege')">Vorträge</button>
+      </div>
+  </header>
   </header>
 
   <!-- CONTENT -->
@@ -800,7 +854,7 @@ body {
     <!-- Stats -->
     <div class="stats-strip">
       <div class="stat-card s-total">
-        <div class="stat-label">Produkte gesamt</div>
+        <div class="stat-label">Apps gesamt</div>
         <div class="stat-value" id="statTotal">19</div>
         <div class="stat-sub">Apps & Landingpages</div>
       </div>
@@ -815,12 +869,23 @@ body {
         <div class="stat-sub">builtsmart-ai.app</div>
       </div>
       <div class="stat-card s-cats">
-        <div class="stat-label">Kategorien</div>
-        <div class="stat-value">5</div>
-        <div class="stat-sub">Produktbereiche</div>
+        <div class="stat-label">Websites</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">Homepages</div>
+      </div>
+      <div class="stat-card s-berichte">
+        <div class="stat-label">Berichte</div>
+        <div class="stat-value" id="statBerichte">0</div>
+        <div class="stat-sub">HTML-Berichte</div>
+      </div>
+      <div class="stat-card s-vortraege">
+        <div class="stat-label">Vorträge</div>
+        <div class="stat-value" id="statVortraege">0</div>
+        <div class="stat-sub">HTML-Präsentationen</div>
       </div>
     </div>
 
+    <!-- Cards rendered by JS -->
     <!-- Cards rendered by JS -->
     <div id="cardContainer"></div>
 
@@ -866,8 +931,16 @@ const CATS = {
   content:  { label: 'Wissen / Content / Kommunikation', color: 'var(--c-content)', icon: 'book' },
   kosten:   { label: 'Kosten / Prognose / Steuerung', color: 'var(--c-kosten)', icon: 'chart' },
   komm:     { label: 'Kommunikation / Präsentation', color: 'var(--c-komm)', icon: 'mic' },
-  karriere: { label: 'Karriere / Produktivität', color: 'var(--c-karriere)', icon: 'star' },
+  karriere:  { label: 'Karriere / Produktivität',  color: 'var(--c-karriere)',  icon: 'star' },
+  berichte:  { label: 'Geschäftsberichte',          color: 'var(--c-berichte)',  icon: 'report' },
+  vortraege: { label: 'Vorträge',                   color: 'var(--c-vortraege)', icon: 'slides' },
+  websites:  { label: 'Websites',                   color: 'var(--gold)',         icon: 'globe'  },
 };
+
+const APP_CATS  = ['risiko','content','kosten','komm','karriere'];
+const PUB_CATS  = ['websites','berichte','vortraege'];
+const ALL_CATS  = [...APP_CATS, ...PUB_CATS];
+
 
 const ICONS = {
   shield: `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 2L3 4.5V9c0 3.5 2.5 6.2 6 7 3.5-.8 6-3.5 6-7V4.5L9 2z"/></svg>`,
@@ -875,6 +948,9 @@ const ICONS = {
   chart:  `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polyline points="2,14 6,9 10,11 16,4"/><line x1="2" y1="16" x2="16" y2="16"/></svg>`,
   mic:    `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="6" y="2" width="6" height="8" rx="3"/><path d="M3 9c0 3.3 2.7 6 6 6s6-2.7 6-6"/><line x1="9" y1="15" x2="9" y2="17"/><line x1="6" y1="17" x2="12" y2="17"/></svg>`,
   star:   `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polygon points="9,2 11.3,6.7 16.5,7.4 12.7,11 13.7,16.2 9,13.7 4.3,16.2 5.3,11 1.5,7.4 6.7,6.7"/></svg>`,
+  report: `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="2" width="12" height="14" rx="2"/><line x1="6" y1="6" x2="12" y2="6"/><line x1="6" y1="9" x2="12" y2="9"/><line x1="6" y1="12" x2="10" y2="12"/></svg>`,
+  slides: `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="3" width="14" height="10" rx="2"/><line x1="9" y1="13" x2="9" y2="16"/><line x1="6" y1="16" x2="12" y2="16"/></svg>`,
+  globe:  `<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><ellipse cx="9" cy="9" rx="3" ry="7"/><line x1="2" y1="9" x2="16" y2="9"/></svg>`,
 };
 
 const EXT = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>`;
@@ -899,16 +975,23 @@ const PRODUCTS = [
   { name:'SMART RecruitPilot',          cat:'karriere', app:'recruit.builtsmart-ai.app' },
   { name:'SMART Focus',                 cat:'karriere', app:'focus.builtsmart-ai.app' },
   { name:'SMART Career Navigator',      cat:'karriere', app:'career.builtsmart-ai.app',       lp:'www.builtsmart-ai.app/career' },
+  { name:'Geschäftsbericht 2026',       cat:'berichte',  placeholder: true },
+  { name:'Vortrag – KI im Bauwesen',   cat:'vortraege', placeholder: true },
+  { name:'metzger-rea.de',             cat:'websites',  url:'https://www.metzger-rea.de',        desc:'Consulting-Landingpage' },
+  { name:'builtsmart-ai.app',          cat:'websites',  url:'https://www.builtsmart-ai.app',     desc:'App-Produktseite' },
+  { name:'built-smart-hub.com',        cat:'websites',  url:'https://www.built-smart-hub.com',   desc:'Content-Plattform' },
 ];
 
 let currentCat = 'all';
 let currentType = 'all';
+let currentMode = 'apps';
 let searchQuery = '';
 
 function iconBg(cat) {
   const map = {
     risiko:'rgba(184,75,47,.1)',content:'rgba(26,127,90,.1)',
-    kosten:'rgba(23,85,166,.1)',komm:'rgba(92,63,163,.1)',karriere:'rgba(158,47,110,.1)'
+    kosten:'rgba(23,85,166,.1)',komm:'rgba(92,63,163,.1)',karriere:'rgba(158,47,110,.1)',
+    berichte:'rgba(46,125,110,.1)',vortraege:'rgba(107,63,160,.1)',websites:'rgba(184,136,42,.1)'
   };
   return map[cat] || '#eee';
 }
@@ -916,20 +999,37 @@ function iconBg(cat) {
 function iconColor(cat) {
   const map = {
     risiko:'var(--c-risiko)',content:'var(--c-content)',
-    kosten:'var(--c-kosten)',komm:'var(--c-komm)',karriere:'var(--c-karriere)'
+    kosten:'var(--c-kosten)',komm:'var(--c-komm)',karriere:'var(--c-karriere)',
+    berichte:'var(--c-berichte)',vortraege:'var(--c-vortraege)',websites:'var(--c-websites)'
   };
   return map[cat] || '#333';
 }
 
 function matchesType(p) {
-  if (currentType === 'all') return true;
-  if (currentType === 'app') return !!p.app;
-  if (currentType === 'lp')  return !!p.lp;
+  if (currentType === 'all')       return true;
+  if (currentType === 'berichte')  return p.cat === 'berichte';
+  if (currentType === 'vortraege') return p.cat === 'vortraege';
+  if (currentType === 'website')   return p.cat === 'websites';
+  if (currentType === 'app')       return !!p.app && APP_CATS.includes(p.cat);
+  if (currentType === 'lp')        return !!p.lp  && APP_CATS.includes(p.cat);
   return true;
 }
 
 function matchesCat(p) {
-  return currentCat === 'all' || p.cat === currentCat;
+  if (currentCat === 'all')     return APP_CATS.includes(p.cat);
+  if (currentCat === 'pub-all') return PUB_CATS.includes(p.cat);
+  return p.cat === currentCat;
+}
+
+function activeCatsForRender() {
+  // Type pills that target pub cats override the sidebar cat selection
+  if (currentType === 'berichte')  return ['berichte'];
+  if (currentType === 'vortraege') return ['vortraege'];
+  if (currentType === 'website')   return ['websites'];
+  // Otherwise follow sidebar selection
+  if (currentCat === 'all')        return APP_CATS;
+  if (currentCat === 'pub-all')    return PUB_CATS;
+  return [currentCat];
 }
 
 function matchesSearch(p) {
@@ -940,6 +1040,8 @@ function matchesSearch(p) {
 }
 
 function buildLinksHTML(p) {
+  if (p.placeholder) return '<div class="placeholder-label">Noch kein Inhalt – wird ergänzt</div>';
+  if (p.url) return `<div class="card-links"><div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>${p.url.replace('https://www.','')}</a></div></div>`;
   let html = '';
   if (currentType !== 'lp' && p.app) {
     html += `<div class="link-entry">
@@ -961,6 +1063,7 @@ function buildLinksHTML(p) {
 }
 
 function buildBadges(p) {
+  if (p.url) return `<span class="badge" style="background:#FDF3DC;color:#8A620A;">Web</span>`;
   let b = '';
   if (currentType !== 'lp' && p.app) b += `<span class="badge badge-app">App</span>`;
   if (currentType !== 'app' && p.lp)  b += `<span class="badge badge-lp">LP</span>`;
@@ -971,9 +1074,7 @@ function render() {
   const container = document.getElementById('cardContainer');
   container.innerHTML = '';
 
-  const cats = currentCat === 'all'
-    ? Object.keys(CATS)
-    : [currentCat];
+  const cats = activeCatsForRender();
 
   let totalVisible = 0, appsVisible = 0, lpsVisible = 0;
 
@@ -1010,7 +1111,7 @@ function render() {
     items.forEach(p => {
       const links = buildLinksHTML(p);
       const card = document.createElement('div');
-      card.className = 'app-card';
+      card.className = 'app-card' + (p.placeholder ? ' app-card-placeholder' : '');
       card.innerHTML = `
         <div class="card-accent" style="background:${C.color}; opacity:.7"></div>
         <div class="card-top">
@@ -1037,24 +1138,34 @@ function render() {
   document.getElementById('statTotal').textContent = totalVisible;
   document.getElementById('statApps').textContent  = currentType === 'lp'  ? 0 : appsVisible;
   document.getElementById('statLPs').textContent   = currentType === 'app' ? 0 : lpsVisible;
+  const berN = PRODUCTS.filter(p => p.cat === 'berichte'  && !p.placeholder).length;
+  const vorN = PRODUCTS.filter(p => p.cat === 'vortraege' && !p.placeholder).length;
+  document.getElementById('statBerichte').textContent  = berN;
+  document.getElementById('statVortraege').textContent = vorN;
+  const pubTotalEl = document.getElementById('statPubTotal');
+  if (pubTotalEl) pubTotalEl.textContent = berN + vorN;
+  const cntPubAll = document.getElementById('cnt-pub-all');
+  if (cntPubAll) cntPubAll.textContent = berN + vorN;
 
   // Update sidebar counts
   Object.keys(CATS).forEach(cat => {
-    const n = PRODUCTS.filter(p => p.cat === cat && matchesType(p) && matchesSearch(p)).length;
+    const n = PRODUCTS.filter(p => p.cat === cat && !p.placeholder && matchesSearch(p)).length;
     const el = document.getElementById('cnt-'+cat);
     if (el) el.textContent = n;
   });
-
-  const allN = PRODUCTS.filter(p => matchesType(p) && matchesSearch(p)).length;
-  const allEl = document.getElementById('cnt-all');
-  if (allEl) allEl.textContent = allN;
+  const allN   = PRODUCTS.filter(p => APP_CATS.includes(p.cat) && !p.placeholder && matchesSearch(p)).length;
+  const pubAllN = PRODUCTS.filter(p => PUB_CATS.includes(p.cat) && !p.placeholder && matchesSearch(p)).length;
+  const allEl  = document.getElementById('cnt-all');
+  const pubEl  = document.getElementById('cnt-pub-all');
+  if (allEl) allEl.textContent  = allN;
+  if (pubEl) pubEl.textContent  = pubAllN;
 }
 
 function setCategory(el, cat) {
   document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
   currentCat = cat;
-  const labels = { all:'Alle Produkte', ...Object.fromEntries(Object.entries(CATS).map(([k,v])=>[k,v.label])) };
+  const labels = { all:'Alle Apps', 'pub-all':'Websites · Berichte · Vorträge', ...Object.fromEntries(Object.entries(CATS).map(([k,v])=>[k,v.label])) };
   document.getElementById('breadcrumbLabel').textContent = labels[cat] || 'Alle Produkte';
   render();
 }
@@ -1063,6 +1174,13 @@ function setType(el, type) {
   document.querySelectorAll('.type-pill').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
   currentType = type;
+  const typeLabels = {
+    'all':'Alle', 'app':'Apps', 'lp':'Landingpages',
+    'website':'Websites', 'berichte':'Geschäftsberichte', 'vortraege':'Vorträge'
+  };
+  document.getElementById('breadcrumbLabel').textContent = type === 'all'
+    ? (currentCat === 'pub-all' ? 'Websites · Berichte · Vorträge' : 'Alle Apps')
+    : typeLabels[type];
   render();
 }
 
