@@ -84,6 +84,34 @@ body {
   overflow-x: hidden;
 }
 
+
+.nav-spacer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,.07);
+  margin: auto 0 0;
+}
+
+.nav-section-homepages {
+  padding-bottom: 12px;
+}
+
+.nav-item-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-ext {
+  width: 10px; height: 10px;
+  margin-left: auto;
+  opacity: .35;
+  flex-shrink: 0;
+}
+
+.nav-item-link:hover .nav-ext {
+  opacity: .7;
+}
+
 /* search */
 .sidebar-search {
   padding: 20px 16px 10px;
@@ -715,6 +743,27 @@ body {
       Karriere / Produkt.
       <span class="nav-count" id="cnt-karriere">3</span>
     </div>
+  </nav>
+
+  <div class="nav-spacer"></div>
+
+  <nav class="nav-section nav-section-homepages">
+    <div class="nav-label">Homepages</div>
+    <a class="nav-item nav-item-link" href="https://www.metzger-rea.de" target="_blank" rel="noopener">
+      <span class="nav-dot" style="background:#C9A84C"></span>
+      metzger-rea.de
+      <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
+    </a>
+    <a class="nav-item nav-item-link" href="https://www.builtsmart-ai.app" target="_blank" rel="noopener">
+      <span class="nav-dot" style="background:#378ADD"></span>
+      builtsmart-ai.app
+      <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
+    </a>
+    <a class="nav-item nav-item-link" href="https://www.built-smart-hub.com" target="_blank" rel="noopener">
+      <span class="nav-dot" style="background:#1D9E75"></span>
+      built-smart-hub.com
+      <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
+    </a>
   </nav>
 
 </aside>
