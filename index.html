@@ -972,6 +972,7 @@ const PRODUCTS = [
   { name:'SMART Meeting Navigator',     cat:'komm',     app:'meeting.builtsmart-ai.app' },
   { name:'SMART LingoLive',             cat:'komm',     app:'lingolive.builtsmart-ai.app' },
   { name:'SMART DeckBuilder Pro',       cat:'komm',     app:'deckbuilder.builtsmart-ai.app' },
+  { name:'SMART Booking',               cat:'komm',     app:'booking.builtsmart-ai.app/book' },
   { name:'SMART RecruitPilot',          cat:'karriere', app:'recruit.builtsmart-ai.app' },
   { name:'SMART Focus',                 cat:'karriere', app:'focus.builtsmart-ai.app' },
   { name:'SMART Career Navigator',      cat:'karriere', app:'career.builtsmart-ai.app',       lp:'www.builtsmart-ai.app/career/index.html' },
@@ -1228,7 +1229,7 @@ render();
 // ── PWA: Service Worker (inline via blob) ──
 if ('serviceWorker' in navigator) {
   const swCode = `
-const CACHE = 'builtsmart-hub-v1';
+const CACHE = 'builtsmart-hub-v2';
 const SHELL = [self.location.href.replace('/sw.js','/')];
 
 self.addEventListener('install', e => {
@@ -1247,17 +1248,55 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request).catch(() =>
-      caches.match(SHELL[0])
-    ))
+    fetch(e.request)
+      .then(response => {
+        const clone = response.clone();
+        caches.open(CACHE).then(cache => cache.put(e.request, clone));
+        return response;
+      })
+      .catch(() =>
+        caches.match(e.request).then(r => r || caches.match(SHELL[0]))
+      )
   );
+});
+
+// Notify all clients when a new SW takes over
+self.addEventListener('message', e => {
+  if (e.data === 'skipWaiting') self.skipWaiting();
 });
 `;
   const swBlob = new Blob([swCode], {type: 'application/javascript'});
   const swUrl  = URL.createObjectURL(swBlob);
+
   navigator.serviceWorker.register(swUrl, {scope: './'})
-    .then(reg => console.log('[PWA] Service Worker registered', reg.scope))
+    .then(reg => {
+      console.log('[PWA] Service Worker registered');
+
+      // Check for updates every 60 seconds
+      setInterval(() => reg.update(), 60000);
+
+      // When a new SW is waiting, activate it immediately and reload
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('[PWA] Neue Version verfügbar – wird geladen…');
+            newWorker.postMessage('skipWaiting');
+          }
+        });
+      });
+    })
     .catch(err => console.warn('[PWA] SW registration failed:', err));
+
+  // When SW controller changes → reload to get fresh version
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      console.log('[PWA] Update aktiv – Seite wird neu geladen');
+      window.location.reload();
+    }
+  });
 }
 
 // ── PWA: Install prompt banner ─────────────────────────────
