@@ -546,12 +546,15 @@ body {
   letter-spacing: .06em;
 }
 
+.card-body {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
 .card-links {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
 }
 
 .link-entry {
@@ -1042,7 +1045,7 @@ function matchesSearch(p) {
 
 function buildLinksHTML(p) {
   if (p.placeholder) return '<div class="placeholder-label">Noch kein Inhalt – wird ergänzt</div>';
-  if (p.url) return `<div class="card-links"><div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>${p.url.replace('https://www.','')}</a></div></div>`;
+  if (p.url) return `<div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>${p.url.replace('https://www.','')}</a></div>`;
   let html = '';
   if (currentType !== 'lp' && p.app) {
     html += `<div class="link-entry">
@@ -1121,7 +1124,7 @@ function render() {
           </div>
           <div class="card-badges">${buildBadges(p)}</div>
         </div>
-        <div>
+        <div class="card-body">
           <div class="card-name">${p.name}</div>
           <div class="card-cat">${C.label}</div>
         </div>
