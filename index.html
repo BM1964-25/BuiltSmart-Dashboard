@@ -976,7 +976,7 @@ const PRODUCTS = [
   { name:'SMART Meeting Navigator',     cat:'komm',     app:'meeting.builtsmart-ai.app' },
   { name:'SMART LingoLive',             cat:'komm',     app:'lingolive.builtsmart-ai.app' },
   { name:'SMART DeckBuilder Pro',       cat:'komm',     app:'deckbuilder.builtsmart-ai.app' },
-  { name:'SMART Booking',               cat:'komm',     app:'booking.builtsmart-ai.app/book?embed=1',
+  { name:'SMART Booking',               cat:'komm',     app:'booking.builtsmart-ai.app/book',
     extraLinks:[
       { label:'Buchen',              url:'https://booking.builtsmart-ai.app/book?embed=1' },
       { label:'Buchen (Metzger REA)', url:'https://booking.builtsmart-ai.app/book/profile/metzger-real-estate-advisory?embed=1' }
@@ -1000,7 +1000,11 @@ const PRODUCTS = [
       { label:'Buchen',                url:'https://booking.builtsmart-ai.app/book?embed=1' }
     ]
   },
-  { name:'built-smart-hub.com',        cat:'websites',  url:'https://www.built-smart-hub.com',   desc:'Content-Plattform' },
+  { name:'built-smart-hub.com',        cat:'websites',  url:'https://www.built-smart-hub.com', desc:'Content-Plattform',
+    extraLinks:[
+      { label:'Buchen', url:'https://booking.builtsmart-ai.app/book/profile/builtsmart-hub?embed=1' }
+    ]
+  },
 ];
 
 let currentCat = 'all';
