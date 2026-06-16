@@ -982,8 +982,14 @@ const PRODUCTS = [
   { name:'SMART Career Navigator',      cat:'karriere', app:'career.builtsmart-ai.app',       lp:'www.builtsmart-ai.app/career/index.html' },
   { name:'Musterbericht',               cat:'berichte',  url:'https://bm1964-25.github.io/Musterbericht/', desc:'HTML-Geschäftsbericht' },
   { name:'Vortrag – KI im Bauwesen',   cat:'vortraege', placeholder: true },
+  { name:'Sale & Lease Back',           cat:'vortraege', url:'https://bm1964-25.github.io/VORTRAG-SALE-AND-LEASE-BACK/', desc:'HTML-Vortrag' },
   { name:'metzger-rea.de',             cat:'websites',  url:'https://www.metzger-rea.de',        desc:'Consulting-Landingpage' },
-  { name:'builtsmart-ai.app',          cat:'websites',  url:'https://www.builtsmart-ai.app',     desc:'App-Produktseite' },
+  { name:'builtsmart-ai.app',          cat:'websites',  url:'https://www.builtsmart-ai.app', desc:'App-Produktseite',
+    extraLinks:[
+      { label:'Landing Tafel Kontakt', url:'https://bm1964-25.github.io/Landing-Tafel-Kontakt/' },
+      { label:'Buchen',                url:'https://booking.builtsmart-ai.app/book' }
+    ]
+  },
   { name:'built-smart-hub.com',        cat:'websites',  url:'https://www.built-smart-hub.com',   desc:'Content-Plattform' },
 ];
 
@@ -1046,7 +1052,14 @@ function matchesSearch(p) {
 
 function buildLinksHTML(p) {
   if (p.placeholder) return '<div class="placeholder-label">Noch kein Inhalt – wird ergänzt</div>';
-  if (p.url) return `<div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>${p.url.replace('https://www.','')}</a></div>`;
+  if (p.url) {
+    const EXT2 = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>`;
+    let rows = `<div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener">${EXT2}${p.url.replace('https://www.','')}</a></div>`;
+    if (p.extraLinks) p.extraLinks.forEach(el => {
+      rows += `<div class="link-entry"><span class="link-type" style="font-size:9px;color:var(--muted)">${el.label}</span><a class="link-url" href="${el.url}" target="_blank" rel="noopener">${EXT2}${el.url.replace('https://','')}</a></div>`;
+    });
+    return rows;
+  }
   let html = '';
   if (currentType !== 'lp' && p.app) {
     html += `<div class="link-entry">
