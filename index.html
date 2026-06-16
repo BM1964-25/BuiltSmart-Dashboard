@@ -1244,6 +1244,7 @@ function render() {
     block.className = 'section-block';
 
     const C = CATS[cat];
+    const gridClass = currentView === 'icon' ? 'icon-grid' : 'card-grid';
     block.innerHTML = `
       <div class="section-head">
         <div class="cat-pill">
@@ -1253,30 +1254,51 @@ function render() {
         <div class="section-divider"></div>
         <span class="section-count">${items.length}</span>
       </div>
-      <div class="card-grid" id="grid-${cat}"></div>
+      <div class="${gridClass}" id="grid-${cat}"></div>
     `;
     container.appendChild(block);
 
     const grid = block.querySelector(`#grid-${cat}`);
     items.forEach(p => {
-      const links = buildLinksHTML(p);
-      const card = document.createElement('div');
-      card.className = 'app-card' + (p.placeholder ? ' app-card-placeholder' : '');
-      card.innerHTML = `
-        <div class="card-accent" style="background:${C.color}; opacity:.7"></div>
-        <div class="card-top">
-          <div class="card-icon" style="background:${iconBg(p.cat)};color:${iconColor(p.cat)}">
+      if (currentView === 'icon') {
+        // ── ICON VIEW ──
+        const href = p.app ? 'https://' + p.app : (p.url || (p.lp ? 'https://' + p.lp : '#'));
+        const card = document.createElement('a');
+        card.className = 'icon-card';
+        card.href = p.placeholder ? '#' : href;
+        if (!p.placeholder) { card.target = '_blank'; card.rel = 'noopener'; }
+        const badgeBg = p.app ? '#EBF2FB' : (p.url ? '#FDF3DC' : '#E4F5EE');
+        const badgeFg = p.app ? '#1755A6' : (p.url ? '#8A620A' : '#1A7F5A');
+        const badgeTx = p.placeholder ? '–' : (p.app ? 'APP' : (p.url ? 'WEB' : 'LP'));
+        card.innerHTML = `
+          <span class="icon-card-badge" style="background:${badgeBg};color:${badgeFg}">${badgeTx}</span>
+          <div class="icon-card-icon" style="background:${iconBg(p.cat)};color:${iconColor(p.cat)}">
             ${ICONS[C.icon]}
           </div>
-          <div class="card-badges">${buildBadges(p)}</div>
-        </div>
-        <div class="card-body">
-          <div class="card-name">${p.name}</div>
-          <div class="card-cat">${C.label}</div>
-        </div>
-        ${links ? `<div class="card-links">${links}</div>` : ''}
-      `;
-      grid.appendChild(card);
+          <div class="icon-card-name">${p.name}</div>
+        `;
+        grid.appendChild(card);
+      } else {
+        // ── CARD VIEW ──
+        const links = buildLinksHTML(p);
+        const card = document.createElement('div');
+        card.className = 'app-card' + (p.placeholder ? ' app-card-placeholder' : '');
+        card.innerHTML = `
+          <div class="card-accent" style="background:${C.color}; opacity:.7"></div>
+          <div class="card-top">
+            <div class="card-icon" style="background:${iconBg(p.cat)};color:${iconColor(p.cat)}">
+              ${ICONS[C.icon]}
+            </div>
+            <div class="card-badges">${buildBadges(p)}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-name">${p.name}</div>
+            <div class="card-cat">${C.label}</div>
+          </div>
+          ${links ? `<div class="card-links">${links}</div>` : ''}
+        `;
+        grid.appendChild(card);
+      }
     });
   });
 
