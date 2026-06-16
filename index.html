@@ -126,6 +126,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .view-toggle {
@@ -393,6 +395,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  flex: 1;
 }
 
 .breadcrumb {
@@ -1284,6 +1288,18 @@ function render() {
   document.getElementById('statTotal').textContent = totalVisible;
   document.getElementById('statApps').textContent  = currentType === 'lp'  ? 0 : appsVisible;
   document.getElementById('statLPs').textContent   = currentType === 'app' ? 0 : lpsVisible;
+  // Update "Apps gesamt" label based on context
+  const totalLabel = document.querySelector('.stat-card.s-total .stat-label');
+  const totalSub   = document.querySelector('.stat-card.s-total .stat-sub');
+  if (totalLabel && totalSub) {
+    if (['berichte','vortraege','website'].includes(currentType)) {
+      totalLabel.textContent = currentType === 'berichte' ? 'Berichte' : currentType === 'vortraege' ? 'Vorträge' : 'Websites';
+      totalSub.textContent   = 'Gefilterte Ansicht';
+    } else {
+      totalLabel.textContent = 'Apps gesamt';
+      totalSub.textContent   = 'Apps & Landingpages';
+    }
+  }
   const berN = PRODUCTS.filter(p => p.cat === 'berichte'  && !p.placeholder).length;
   const vorN = PRODUCTS.filter(p => p.cat === 'vortraege' && !p.placeholder).length;
   document.getElementById('statBerichte').textContent  = berN;
