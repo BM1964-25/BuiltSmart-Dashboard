@@ -1332,6 +1332,13 @@ function setCategory(el, cat) {
   render();
 }
 
+function setView(view) {
+  currentView = view;
+  document.getElementById('viewGrid').classList.toggle('active', view === 'grid');
+  document.getElementById('viewIcon').classList.toggle('active', view === 'icon');
+  render();
+}
+
 function setType(el, type) {
   document.querySelectorAll('.type-pill').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
