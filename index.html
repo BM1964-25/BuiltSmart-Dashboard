@@ -531,7 +531,7 @@ body {
 
 .card-name {
   font-family: 'Syne', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--navy);
   line-height: 1.25;
@@ -574,6 +574,7 @@ body {
 
 .link-url {
   font-size: 11.5px;
+  font-weight: 600;
   color: var(--navy3);
   text-decoration: none;
   overflow: hidden;
@@ -983,7 +984,11 @@ const PRODUCTS = [
   { name:'Musterbericht',               cat:'berichte',  url:'https://bm1964-25.github.io/Musterbericht/', desc:'HTML-Geschäftsbericht' },
   { name:'Vortrag – KI im Bauwesen',   cat:'vortraege', placeholder: true },
   { name:'Sale & Lease Back',           cat:'vortraege', url:'https://bm1964-25.github.io/VORTRAG-SALE-AND-LEASE-BACK/', desc:'HTML-Vortrag' },
-  { name:'metzger-rea.de',             cat:'websites',  url:'https://www.metzger-rea.de',        desc:'Consulting-Landingpage' },
+  { name:'metzger-rea.de',             cat:'websites',  url:'https://www.metzger-rea.de', desc:'Consulting-Landingpage',
+    extraLinks:[
+      { label:'Buchen', url:'https://booking.builtsmart-ai.app/book/profile/metzger-real-estate-advisory?embed=1' }
+    ]
+  },
   { name:'builtsmart-ai.app',          cat:'websites',  url:'https://www.builtsmart-ai.app', desc:'App-Produktseite',
     extraLinks:[
       { label:'Landing Tafel Kontakt', url:'https://bm1964-25.github.io/Landing-Tafel-Kontakt/' },
