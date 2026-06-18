@@ -912,17 +912,17 @@ body {
 
   <nav class="nav-section nav-section-homepages">
     <div class="nav-label">Homepages</div>
-    <a class="nav-item nav-item-link" href="https://www.metzger-rea.de" target="_blank" rel="noopener">
+    <a class="nav-item nav-item-link" href="https://www.metzger-rea.de" onclick="openLink(event,'https://www.metzger-rea.de')">
       <span class="nav-dot" style="background:#C9A84C"></span>
       metzger-rea.de
       <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
     </a>
-    <a class="nav-item nav-item-link" href="https://www.builtsmart-ai.app" target="_blank" rel="noopener">
+    <a class="nav-item nav-item-link" href="https://www.builtsmart-ai.app" onclick="openLink(event,'https://www.builtsmart-ai.app')">
       <span class="nav-dot" style="background:#378ADD"></span>
       builtsmart-ai.app
       <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
     </a>
-    <a class="nav-item nav-item-link" href="https://www.built-smart-hub.com" target="_blank" rel="noopener">
+    <a class="nav-item nav-item-link" href="https://www.built-smart-hub.com" onclick="openLink(event,'https://www.built-smart-hub.com')">
       <span class="nav-dot" style="background:#1D9E75"></span>
       built-smart-hub.com
       <svg class="nav-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>
@@ -1219,9 +1219,9 @@ function buildLinksHTML(p) {
   if (p.placeholder) return '<div class="placeholder-label">Noch kein Inhalt – wird ergänzt</div>';
   if (p.url) {
     const EXT2 = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>`;
-    let rows = `<div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" target="_blank" rel="noopener">${EXT2}${p.url.replace('https://www.','')}</a></div>`;
+    let rows = `<div class="link-entry"><span class="link-type">WEB</span><a class="link-url" href="${p.url}" onclick="openLink(event,'${p.url}')">${EXT2}${p.url.replace('https://www.','')}</a></div>`;
     if (p.extraLinks) p.extraLinks.forEach(el => {
-      rows += `<div class="link-entry"><span class="link-type" style="font-size:9px;color:var(--muted)">${el.label}</span><a class="link-url" href="${el.url}" target="_blank" rel="noopener">${EXT2}${el.url.replace('https://','')}</a></div>`;
+      rows += `<div class="link-entry"><span class="link-type" style="font-size:9px;color:var(--muted)">${el.label}</span><a class="link-url" href="${el.url}" onclick="openLink(event,'${el.url}')">${EXT2}${el.url.replace('https://','')}</a></div>`;
     });
     return rows;
   }
@@ -1229,7 +1229,7 @@ function buildLinksHTML(p) {
   if (currentType !== 'lp' && p.app) {
     html += `<div class="link-entry">
       <span class="link-type">APP</span>
-      <a class="link-url" href="https://${p.app}" target="_blank" rel="noopener">
+      <a class="link-url" href="https://${p.app}" onclick="openLink(event,'https://${p.app}')">
         ${EXT}${p.app}
       </a>
     </div>`;
@@ -1237,7 +1237,7 @@ function buildLinksHTML(p) {
   if (currentType !== 'app' && p.lp) {
     html += `<div class="link-entry">
       <span class="link-type">LP</span>
-      <a class="link-url" href="https://${p.lp}" target="_blank" rel="noopener">
+      <a class="link-url" href="https://${p.lp}" onclick="openLink(event,'https://${p.lp}')">
         ${EXT}${p.lp}
       </a>
     </div>`;
@@ -1299,7 +1299,7 @@ function render() {
         const card = document.createElement('a');
         card.className = 'icon-card';
         card.href = p.placeholder ? '#' : href;
-        if (!p.placeholder) { card.target = '_blank'; card.rel = 'noopener'; }
+        if (!p.placeholder) { card.onclick = (e) => { e.preventDefault(); openLink(e, card.href); }; }
         const badgeBg = p.app ? '#EBF2FB' : (p.url ? '#FDF3DC' : '#E4F5EE');
         const badgeFg = p.app ? '#1755A6' : (p.url ? '#8A620A' : '#1A7F5A');
         const badgeTx = p.placeholder ? '–' : (p.app ? 'APP' : (p.url ? 'WEB' : 'LP'));
@@ -1389,6 +1389,16 @@ function setCategory(el, cat) {
   const labels = { all:'Alle Apps', 'pub-all':'Websites · Berichte · Vorträge', ...Object.fromEntries(Object.entries(CATS).map(([k,v])=>[k,v.label])) };
   document.getElementById('breadcrumbLabel').textContent = labels[cat] || 'Alle Produkte';
   render();
+}
+
+function openLink(e, url) {
+  e.preventDefault();
+  // Works in PWA standalone mode and browser
+  if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+    window.open(url, '_blank');
+  } else {
+    window.open(url, '_blank');
+  }
 }
 
 function setView(view) {
