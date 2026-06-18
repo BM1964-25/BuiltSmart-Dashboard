@@ -1466,7 +1466,7 @@ render();
 // ── PWA: Service Worker (inline via blob) ──
 if ('serviceWorker' in navigator) {
   const swCode = `
-const CACHE = 'builtsmart-hub-v2';
+const CACHE = 'builtsmart-hub-v3';
 const SHELL = [self.location.href.replace('/sw.js','/')];
 
 self.addEventListener('install', e => {
