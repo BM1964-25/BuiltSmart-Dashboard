@@ -1242,6 +1242,12 @@ function buildLinksHTML(p) {
       </a>
     </div>`;
   }
+  if (p.extraLinks) {
+    const EXT2 = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:11px;height:11px;flex-shrink:0"><path d="M5 2H2v8h8V7M7 2h3v3M10 2L5.5 6.5"/></svg>`;
+    p.extraLinks.forEach(el => {
+      html += `<div class="link-entry"><span class="link-type" style="font-size:9px;color:var(--muted)">${el.label}</span><a class="link-url" href="${el.url}" onclick="openLink(event,'${el.url}')">${EXT2}${el.url.replace('https://','')}</a></div>`;
+    });
+  }
   return html;
 }
 
