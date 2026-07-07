@@ -668,6 +668,11 @@ tbody td:first-child { font-weight: 600; }
     .wf-tools-label { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
     .wf-tools-grid { display:flex; flex-wrap:wrap; gap:5px; }
     .wf-tool { font-size:11px; padding:3px 9px; border-radius:6px; background:var(--cream2); color:var(--navy); font-weight:500; }
+    .wf-tool-list { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+    .wf-tool-item { display:grid; grid-template-columns:110px 1fr; gap:10px; align-items:start; border-bottom:1px solid var(--border); padding-bottom:8px; }
+    .wf-tool-item:last-child { border-bottom:none; padding-bottom:0; }
+    .wf-tool-name { font-size:11.5px; font-weight:600; color:var(--navy); padding:2px 8px; border-radius:5px; background:var(--cream2); text-align:center; line-height:1.3; }
+    .wf-tool-desc { font-size:11.5px; color:var(--muted); line-height:1.45; }
     .wf-bullet { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--muted); margin-bottom:8px; line-height:1.45; }
     .wf-bullet-dot { width:5px; height:5px; border-radius:50%; margin-top:5px; flex-shrink:0; }
     .wf-savings { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; padding-top:12px; border-top:1px dashed var(--border); }
@@ -722,14 +727,14 @@ tbody td:first-child { font-weight: 600; }
           </div>
         </div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Wo Dokumente gesammelt werden</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">SharePoint</span>
-            <span class="wf-tool">Google Drive</span>
-            <span class="wf-tool">OneDrive</span>
-            <span class="wf-tool">DMS / DocuWare</span>
-            <span class="wf-tool">Lokal / Desktop</span>
-            <span class="wf-tool">E-Mail-Anhang</span>
+          <div class="wf-tools-label">Wo Dokumente gesammelt &amp; hochgeladen werden</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">SharePoint</span><span class="wf-tool-desc">Dokumente direkt aus dem Microsoft-Unternehmensordner laden – Claude greift auf freigegebene Bibliotheken zu</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Google Drive</span><span class="wf-tool-desc">PDFs, Word- und Excel-Dateien aus Google Drive hochladen – auch ganze Ordner auf einmal</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">OneDrive</span><span class="wf-tool-desc">Persönliche oder geteilte Dateien aus Microsoft OneDrive – ideal für Einzelnutzer und kleine Teams</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">DMS / DocuWare</span><span class="wf-tool-desc">Dokumente aus professionellen Archivierungssystemen abrufen – mit Metadaten, Versionierung und Zugriffshistorie</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Lokal / Desktop</span><span class="wf-tool-desc">Dateien direkt vom Computer hochladen – Drag &amp; Drop im Chat, keine Cloud nötig</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">E-Mail-Anhang</span><span class="wf-tool-desc">PDF oder Word-Anhang aus Outlook oder Gmail direkt weitergeben – Claude liest den Inhalt und erstellt das gewünschte Artefakt</span></div>
           </div>
         </div>
       </div>
@@ -744,16 +749,14 @@ tbody td:first-child { font-weight: 600; }
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-art)"></span>Ergebnis als Vorlage speicherbar für künftige Artefakte</div>
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-art)"></span>Kein technisches Vorwissen nötig — funktioniert für jeden</div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Tools die verknüpft werden können</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">Microsoft Word</span>
-            <span class="wf-tool">Excel</span>
-            <span class="wf-tool">PowerPoint</span>
-            <span class="wf-tool">Google Docs</span>
-            <span class="wf-tool">PDF-Export</span>
-            <span class="wf-tool">HTML-Dashboard</span>
-            <span class="wf-tool">Notion</span>
-            <span class="wf-tool">Confluence</span>
+          <div class="wf-tools-label">Ausgabeformate &amp; Zieltools</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">Microsoft Word</span><span class="wf-tool-desc">Berichte, Protokolle und Verträge als .docx – mit Formatierung, Überschriften, Tabellen und Deckblatt</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Excel</span><span class="wf-tool-desc">Kalkulationstabellen, Risikomatrizen und Auswertungen als .xlsx – mit Formeln und bedingter Formatierung</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">PowerPoint</span><span class="wf-tool-desc">Executive-Präsentationen und Lagebericht-Folien als .pptx – strukturiert nach Storyline</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">PDF-Export</span><span class="wf-tool-desc">Druckfertige Dokumente als PDF – für Auftraggeber, Investoren oder Behörden</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">HTML-Dashboard</span><span class="wf-tool-desc">Interaktive Berichte direkt im Browser – mit Diagrammen, Filtern und klickbaren Elementen</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Notion / Confluence</span><span class="wf-tool-desc">Artefakt direkt als strukturierte Seite in Ihrem Wiki ablegen – für Teams zugänglich und versioniert</span></div>
           </div>
         </div>
         <div class="wf-savings">
@@ -814,14 +817,12 @@ tbody td:first-child { font-weight: 600; }
           </div>
         </div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Wo Regelwerke hinterlegt werden</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">Claude Projects</span>
-            <span class="wf-tool">System Prompt</span>
-            <span class="wf-tool">Wissensdatenbank</span>
-            <span class="wf-tool">Confluence</span>
-            <span class="wf-tool">SharePoint-Wiki</span>
-            <span class="wf-tool">Notion</span>
+          <div class="wf-tools-label">Wo Regelwerke hinterlegt &amp; gespeichert werden</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">Claude Projects</span><span class="wf-tool-desc">Das Regelwerk wird als Projektanweisung hinterlegt – alle Teammitglieder im Projekt nutzen automatisch denselben Skill</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">System Prompt</span><span class="wf-tool-desc">Der Skill wird als unsichtbare Voranweisung übergeben – Claude wendet ihn auf jede Anfrage an, ohne dass der Nutzer ihn kennen muss</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Wissensdatenbank</span><span class="wf-tool-desc">Normen, Regelwerke und Fachdokumente als Referenz hochladen – Claude zieht daraus bei jeder Anfrage aktiv Informationen</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Confluence / Notion</span><span class="wf-tool-desc">Skill-Definitionen im Unternehmens-Wiki dokumentieren – für Transparenz, Versionierung und einfache Aktualisierung</span></div>
           </div>
         </div>
       </div>
@@ -836,16 +837,14 @@ tbody td:first-child { font-weight: 600; }
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-skill)"></span>Fachwissen bleibt erhalten — auch wenn Mitarbeiter das Unternehmen verlassen</div>
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-skill)"></span>Mehrere Skills kombinierbar — z.B. VOB/B + HOAI + Hausstandard gleichzeitig aktiv</div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Regelwerke die als Skills hinterlegt werden</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">VOB/B</span>
-            <span class="wf-tool">HOAI §34 ff.</span>
-            <span class="wf-tool">DIN 5008</span>
-            <span class="wf-tool">ISO 9001</span>
-            <span class="wf-tool">Hausstandard</span>
-            <span class="wf-tool">CI/CD Sprache</span>
-            <span class="wf-tool">Risiko-Schema</span>
-            <span class="wf-tool">Investor-Reporting</span>
+          <div class="wf-tools-label">Konkrete Regelwerke als Skills – Bau &amp; Immo</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">VOB/B</span><span class="wf-tool-desc">Prüfung von Nachträgen auf Anspruchsgrundlage, Ankündigungspflicht und Fristeneinhaltung – automatisch nach § 1, 2 und 6 VOB/B</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">HOAI §34 ff.</span><span class="wf-tool-desc">Beurteilung von Planerleistungen nach Leistungsphasen – Claude prüft Vollständigkeit und Konformität jeder Leistungsphase</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">DIN 5008</span><span class="wf-tool-desc">Automatische Formatierung von Protokollen, Briefen und Berichten nach DIN-Norm – ohne manuelle Anpassung</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Hausstandard</span><span class="wf-tool-desc">Eigene Berichtsvorlagen, Bewertungsschemata und CI-Vorgaben einmalig hinterlegen – Claude wendet sie auf alle Ausgaben an</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Risiko-Schema</span><span class="wf-tool-desc">Interne Risikobewertungsmatrix als Skill – Eintrittswahrscheinlichkeit, Schadenshöhe und Maßnahmen nach eigenem System</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Investor-Reporting</span><span class="wf-tool-desc">Festgelegte Struktur für Quartalsberichte – Kennzahlen, Kommentierungen und Grafiken immer im selben Format für Investoren</span></div>
           </div>
         </div>
         <div class="wf-savings">
@@ -906,18 +905,14 @@ tbody td:first-child { font-weight: 600; }
           </div>
         </div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Systeme die zentral angebunden werden</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">SharePoint</span>
-            <span class="wf-tool">SAP</span>
-            <span class="wf-tool">DATEV</span>
-            <span class="wf-tool">DocuWare DMS</span>
-            <span class="wf-tool">Outlook / Exchange</span>
-            <span class="wf-tool">Google Workspace</span>
-            <span class="wf-tool">Salesforce CRM</span>
-            <span class="wf-tool">Jira / Asana</span>
-            <span class="wf-tool">MS Project</span>
-            <span class="wf-tool">Navision / BC</span>
+          <div class="wf-tools-label">Systeme die angebunden werden – was konkret passiert</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">SharePoint</span><span class="wf-tool-desc">Claude greift auf Dokumentenbibliotheken zu – sucht, liest und legt Berichte direkt in den richtigen Projektordner ab</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">SAP / ERP</span><span class="wf-tool-desc">Rechnungen, Kostenstellen und Buchungen direkt aus SAP abfragen – ohne Systemwechsel, ohne Export</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">DATEV</span><span class="wf-tool-desc">Buchhaltungsdaten, offene Posten und Finanzkennzahlen abrufen – Claude analysiert und erklärt auf Nachfrage</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">DocuWare DMS</span><span class="wf-tool-desc">Aus Tausenden von Verträgen, Protokollen und Rechnungen in Sekunden die relevanten Dokumente finden</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Outlook / Exchange</span><span class="wf-tool-desc">E-Mails lesen, kategorisieren und beantworten – Claude erkennt Fristen, Aufgaben und Handlungsbedarf automatisch</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Jira / Asana</span><span class="wf-tool-desc">Projektstatus, offene Tickets und Meilensteine abfragen – Claude erstellt daraus Statusberichte und Zusammenfassungen</span></div>
           </div>
         </div>
       </div>
@@ -933,13 +928,13 @@ tbody td:first-child { font-weight: 600; }
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-conn)"></span>Alle Zugriffe werden protokolliert — vollständige Nachvollziehbarkeit</div>
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-conn)"></span>Mehrere Systeme gleichzeitig — DMS + ERP + CRM in einer Abfrage</div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Typische Abfragen im Betrieb</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">„Zeige offene Rechnungen"</span>
-            <span class="wf-tool">„Welche Fristen laufen ab?"</span>
-            <span class="wf-tool">„Finde Vertrag Nr. X"</span>
-            <span class="wf-tool">„Lege Bericht in Ordner ab"</span>
-            <span class="wf-tool">„Alle Mails von Auftraggeber Y"</span>
+          <div class="wf-tools-label">Typische Abfragen &amp; was Claude dann tut</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">„Zeige offene Rechnungen"</span><span class="wf-tool-desc">Claude fragt das ERP ab, filtert nach Status „offen", sortiert nach Fälligkeit und listet Betrag, Lieferant und Kostenstelle</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">„Welche Fristen laufen ab?"</span><span class="wf-tool-desc">Claude durchsucht alle Verträge im DMS nach Laufzeitende, Optionsfristen und Kündigungsterminen in den nächsten 90 Tagen</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">„Finde Vertrag Nr. X"</span><span class="wf-tool-desc">Claude sucht im DMS nach Vertragsnummer, liest Inhalt, extrahiert Schlüsselklauseln und beantwortet konkrete Fragen dazu</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">„Lege Bericht ab"</span><span class="wf-tool-desc">Das fertige Artefakt wird direkt in den definierten SharePoint-Ordner geschrieben – kein manueller Upload nötig</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">„Mails von Auftraggeber Y"</span><span class="wf-tool-desc">Claude liest alle relevanten E-Mails, fasst Kernaussagen zusammen und erstellt eine priorisierte Handlungsliste</span></div>
           </div>
         </div>
         <div class="wf-savings">
@@ -993,16 +988,13 @@ tbody td:first-child { font-weight: 600; }
           </div>
         </div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Datenquellen die Plugins anzapfen</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">BKI Baukosten</span>
-            <span class="wf-tool">Immobilienpreise</span>
-            <span class="wf-tool">Zinssätze live</span>
-            <span class="wf-tool">Ausschreibungen</span>
-            <span class="wf-tool">Grundbuch-API</span>
-            <span class="wf-tool">Wetter/Boden</span>
-            <span class="wf-tool">Nachrichten</span>
-            <span class="wf-tool">Gesetze aktuell</span>
+          <div class="wf-tools-label">Datenquellen die Plugins live anzapfen</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">BKI Baukosten</span><span class="wf-tool-desc">Aktuelle Baukostenindizes für Deutschland – Claude holt Kennwerte für Gebäudetyp, Region und Baujahr in Echtzeit</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Immobilienpreise</span><span class="wf-tool-desc">Aktuelle Marktmieten, Kaufpreisfaktoren und Leerstandsquoten nach PLZ – für Bewertungen und Wirtschaftlichkeitsrechnung</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Zinssätze live</span><span class="wf-tool-desc">EZB-Leitzins, aktuelle Finanzierungskonditionen und Swap-Rates – direkt in die Kalkulation eingebaut</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Ausschreibungen</span><span class="wf-tool-desc">Öffentliche Ausschreibungen von DTVP, Vergabe24 oder TED abrufen – Claude filtert nach Kriterien und bereitet Bewerbung vor</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Gesetze aktuell</span><span class="wf-tool-desc">Aktuelle Fassung von HOAI, VOB, BauGB, GEG direkt abrufen – Claude prüft immer gegen die gültige Version</span></div>
           </div>
         </div>
       </div>
@@ -1017,18 +1009,14 @@ tbody td:first-child { font-weight: 600; }
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-plugin)"></span>Plugins ergänzen Connectors — Connector holt Daten, Plugin rechnet damit</div>
         <div class="wf-bullet"><span class="wf-bullet-dot" style="background:var(--c-plugin)"></span>Neue Plugins einfach hinzufügbar — Bibliothek wächst kontinuierlich</div>
         <div class="wf-tools">
-          <div class="wf-tools-label">Tools die als Plugins verfügbar sind</div>
-          <div class="wf-tools-grid">
-            <span class="wf-tool">Websuche</span>
-            <span class="wf-tool">Python-Ausführung</span>
-            <span class="wf-tool">Excel-Erstellung</span>
-            <span class="wf-tool">PDF-Verarbeitung</span>
-            <span class="wf-tool">Monte-Carlo</span>
-            <span class="wf-tool">Chart-Generierung</span>
-            <span class="wf-tool">Karten / GIS</span>
-            <span class="wf-tool">Übersetzung</span>
-            <span class="wf-tool">OCR</span>
-            <span class="wf-tool">E-Mail-Versand</span>
+          <div class="wf-tools-label">Plugin-Werkzeuge &amp; was sie konkret leisten</div>
+          <div class="wf-tool-list">
+            <div class="wf-tool-item"><span class="wf-tool-name">Websuche</span><span class="wf-tool-desc">Claude recherchiert selbst im Internet – aktuelle Marktdaten, Rechtsprechung, Nachrichtenartikel direkt in die Antwort eingebaut</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Python-Ausführung</span><span class="wf-tool-desc">Komplexe Berechnungen live durchführen – Renditerechnung, Sensitivitätsanalyse, Monte-Carlo mit tausenden Szenarien</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">PDF-Verarbeitung</span><span class="wf-tool-desc">Gescannte Dokumente auslesen (OCR), Tabellen extrahieren, mehrere PDFs zusammenführen oder aufteilen</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Chart-Generierung</span><span class="wf-tool-desc">Diagramme, Balkenvergleiche und interaktive Dashboards direkt aus den berechneten Daten erstellen</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">Karten / GIS</span><span class="wf-tool-desc">Objekte auf Karte verorten, Einzugsgebiete berechnen, Infrastruktur und Lagen visualisieren</span></div>
+            <div class="wf-tool-item"><span class="wf-tool-name">E-Mail-Versand</span><span class="wf-tool-desc">Fertig erstellte Berichte oder Antworten direkt aus Claude heraus versenden – ohne Wechsel in Outlook oder Gmail</span></div>
           </div>
         </div>
         <div class="wf-savings">
