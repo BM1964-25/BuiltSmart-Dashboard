@@ -135,9 +135,15 @@ const CATS = [
   { id:'c19', label:'Hilfesystem',                  stripe:'stripe7'  },
   { id:'c20', label:'Hilfsfunktionen',              stripe:'stripe8'  },
   { id:'c21', label:'Nicht direkt verbaut',         stripe:'stripe9'  },
+  { id:'c22', label:'Kern-Dateien',                  stripe:'stripe10' },
+  { id:'c23', label:'KI-Modi und Antwortsteuerung',  stripe:'stripe11' },
+  { id:'c24', label:'Ergebnisbereich',               stripe:'stripe12' },
+  { id:'c25', label:'Dateiimport',                   stripe:'stripe1'  },
+  { id:'c26', label:'Lokaler Server',                stripe:'stripe2'  },
+  { id:'c27', label:'Paketierung und Build',         stripe:'stripe3'  },
 ];
 
-const APPS = ['SMART RISK Vertragsanalyse'];
+const APPS = ['SMART RISK Vertragsanalyse','SMART ReplySuite'];
 
 const ITEMS = [
   // ── 1. Externe Bibliotheken ──
@@ -360,6 +366,97 @@ const ITEMS = [
   {name:'Kein aktiver Supabase-Betrieb',cat:'c21',app:'SMART RISK Vertragsanalyse', desc:'Supabase ist vorbereitet. Ohne konfigurierte URL und Anon-Key ist Supabase lokal nicht aktiv.'},
   {name:'Kein Framework',           cat:'c21', app:'SMART RISK Vertragsanalyse', desc:'Keine React-, Vue- oder Angular-Struktur. Die App ist eine reine HTML-, CSS- und JavaScript-App.'},
   {name:'Kein Serverzwang',         cat:'c21', app:'SMART RISK Vertragsanalyse', desc:'Die App läuft grundsätzlich als lokale file://-HTML-Datei. Voraussetzung: Browser, CDN-Quellen und API-Zugriffe sind erreichbar.'},
+  // ══════════════════════════════════════════════════════════
+  // SMART ReplySuite
+  // ══════════════════════════════════════════════════════════
+
+  // ── Kern-Dateien ──
+  {name:'index.html',               cat:'c22', app:'SMART ReplySuite', desc:'Hauptoberfläche der App: Navigation, Composer, Ergebnisbereich, Vorlagen, Stilprofile, Verlauf, Datensicherung, Zugang & Abrechnung, Hilfe.'},
+  {name:'styles.css',               cat:'c22', app:'SMART ReplySuite', desc:'Komplettes UI-Styling: App-Layout, Sidebar, Panels, Karten, Ergebnisbereich, Lizenzbereich, Buttons, responsive Darstellung.'},
+  {name:'app.js',                   cat:'c22', app:'SMART ReplySuite', desc:'Zentrale App-Logik: Eingaben, Antworterstellung, Varianten, Dateiimport, Verlauf, Vorlagen, Stilprofile, UI-Zustände, BuiltSmart-AI-Aufrufe, Credit-Handling.'},
+  {name:'anthropicClient.js',       cat:'c22', app:'SMART ReplySuite', desc:'Lokaler Anthropic-Client für Nutzung mit eigenem API-Key. Baut Prompts und ruft Claude über den lokalen Proxy auf.'},
+  {name:'licenseClient.js',         cat:'c22', app:'SMART ReplySuite', desc:'BuiltSmart-Lizenzclient: Magic-Link-Login, App-Zugriff, Trial, Credits, Checkout, Billing Portal.'},
+  {name:'localProxyServer.js',      cat:'c22', app:'SMART ReplySuite', desc:'Lokaler App-Server für npm start: liefert die App aus, proxyt Anthropic-Aufrufe, verarbeitet Dateiimport und lokale Extraktion.'},
+
+  // ── Externe Bibliotheken ──
+  {name:'Mammoth',                  cat:'c1',  app:'SMART ReplySuite', desc:'Liest .docx-Dateien aus und extrahiert Rohtext.'},
+  {name:'pdf-parse',                cat:'c1',  app:'SMART ReplySuite', desc:'Serverseitiger PDF-Textimport im lokalen Proxy.'},
+  {name:'PDF.js (ReplySuite)',      cat:'c1',  app:'SMART ReplySuite', desc:'Browser-Fallback zum Auslesen von PDFs, inklusive strukturierter Textrekonstruktion nach Seiten und Textpositionen.'},
+  {name:'Poppler / Tesseract',      cat:'c1',  app:'SMART ReplySuite', desc:'Optionaler OCR-Fallback im lokalen Server für gescannte PDFs. Wird über gebündelte oder systemweite Binaries gesucht.'},
+  {name:'Supabase JS',              cat:'c1',  app:'SMART ReplySuite', desc:'Wird im Browser geladen für Magic-Link-Login, Session, RPCs und zentrale Lizenz-/Credit-Prüfung.'},
+
+  // ── Backend, Zugriff und KI ──
+  {name:'App-Zugriff',              cat:'c2',  app:'SMART ReplySuite', desc:'checkAppAccess("smart_replysuite") entscheidet über Trial- und Jahreslizenz-Zugriff.'},
+  {name:'Billing Portal',           cat:'c2',  app:'SMART ReplySuite', desc:'Abo und Rechnungen werden über zentrale Customer-Portal-Function geöffnet.'},
+  {name:'BuiltSmart AI Function',   cat:'c2',  app:'SMART ReplySuite', desc:'Zentrale KI-Pipeline über Supabase Edge Function. App ruft run_ai_action mit reply_generate auf.'},
+  {name:'Checkout',                 cat:'c2',  app:'SMART ReplySuite', desc:'Jahreslizenz und AI-Credits werden über zentrale Checkout-Functions gestartet.'},
+  {name:'Credit-Aktualisierung',    cat:'c2',  app:'SMART ReplySuite', desc:'Nach erfolgreicher KI-Aktion lädt die App getAiCreditBalance() neu.'},
+  {name:'Credit-Schätzung',         cat:'c2',  app:'SMART ReplySuite', desc:'Vor BuiltSmart-AI-Nutzung wird zentral estimate_ai_usage aufgerufen. Die App berechnet Credits nicht lokal.'},
+  {name:'Eigener Anthropic API-Key',cat:'c2',  app:'SMART ReplySuite', desc:'Lokale Alternative für KI-Ausführung. Der Key wird lokal im Browser gespeichert und über den lokalen Proxy genutzt.'},
+  {name:'Magic-Link-Login',         cat:'c2',  app:'SMART ReplySuite', desc:'Login läuft über Supabase Auth. Session bleibt im Browser gespeichert.'},
+  {name:'Trial',                    cat:'c2',  app:'SMART ReplySuite', desc:'3-Tage-Free-Trial mit zentral verwalteten Test-Credits.'},
+
+  // ── KI-Modi und Antwortsteuerung ──
+  {name:'Antwort verfeinern',       cat:'c23', app:'SMART ReplySuite', desc:'Varianten werden nachgelagert anhand von Antworttyp, Tonalität, Länge, Sprache, Fokus, Vorlage und Stilprofil erzeugt.'},
+  {name:'Antwortsprache',           cat:'c23', app:'SMART ReplySuite', desc:'Verfügbare Sprachen: Deutsch, Englisch, Französisch, Spanisch, Italienisch.'},
+  {name:'Antworttyp',               cat:'c23', app:'SMART ReplySuite', desc:'z.B. Zustimmung, Ablehnung, Rückfrage, Information, Terminabstimmung, Stellungnahme, Bitte um Entscheidung.'},
+  {name:'Eigenes Schreiben optimieren',cat:'c23',app:'SMART ReplySuite', desc:'Ein vorhandener eigener Entwurf wird sprachlich, strukturell und stilistisch verbessert.'},
+  {name:'Länge',                    cat:'c23', app:'SMART ReplySuite', desc:'Kurz, Standard oder ausführlich.'},
+  {name:'Schreiben aus Auftrag',    cat:'c23', app:'SMART ReplySuite', desc:'Kurze Schreibaufträge können als neues Schreiben interpretiert werden, wenn kein klassischer Eingangstext vorliegt.'},
+  {name:'Stilprofile',              cat:'c23', app:'SMART ReplySuite', desc:'Wiederverwendbare Kommunikationsprofile mit Grundstil, Akzenten, No-Gos und eigenen Regeln.'},
+  {name:'Tonalität',                cat:'c23', app:'SMART ReplySuite', desc:'z.B. geschäftlich-formell, sachlich, freundlich, verbindlich, diplomatisch, direkt, bestimmt.'},
+  {name:'Variante erstellen',       cat:'c23', app:'SMART ReplySuite', desc:'Nach der ersten Antwort können bis zu zwei Varianten erzeugt werden: Variante 1 und Variante 2.'},
+  {name:'Vorlagen',                 cat:'c23', app:'SMART ReplySuite', desc:'Gespeicherte Textbausteine können in die Antwortsteuerung einfließen.'},
+  {name:'Ziel und Hinweise',        cat:'c23', app:'SMART ReplySuite', desc:'Freitextfeld für gewünschtes Ergebnis, Grenzen, Fristen, Ansprechpartner, No-Gos und nächste Schritte.'},
+  {name:'Antwort erstellen',        cat:'c23', app:'SMART ReplySuite', desc:'Aus einer eingegangenen Nachricht, E-Mail, einem Brief oder PDF wird eine direkt nutzbare Antwort erzeugt.'},
+
+  // ── Ergebnisbereich ──
+  {name:'Analyse',                  cat:'c24', app:'SMART ReplySuite', desc:'Soweit von der Pipeline geliefert oder ableitbar, unterstützende Einordnung der Quelle.'},
+  {name:'Antwort (primär)',         cat:'c24', app:'SMART ReplySuite', desc:'Primäre direkt nutzbare Hauptantwort.'},
+  {name:'Kopieren',                 cat:'c24', app:'SMART ReplySuite', desc:'Aktueller Ergebnisbereich oder gesamte Akte kann kopiert werden.'},
+  {name:'Löschen',                  cat:'c24', app:'SMART ReplySuite', desc:'Einzelne Antwort- und Variantenbereiche können separat gelöscht werden.'},
+  {name:'Undo / Redo',              cat:'c24', app:'SMART ReplySuite', desc:'Antwortänderungen im Ergebnisbereich können rückgängig gemacht bzw. wiederhergestellt werden.'},
+  {name:'Variante 1 / Variante 2',  cat:'c24', app:'SMART ReplySuite', desc:'Optional nachgelagerte Optimierungen, nicht automatisch im ersten Lauf erzwungen.'},
+  {name:'Versandcheck',             cat:'c24', app:'SMART ReplySuite', desc:'Prüfung von Risiko, Ton, Klarheit, Verbindlichkeit und Versandhinweisen.'},
+
+  // ── Dateiimport ──
+  {name:'Browser-Fallback (Import)',cat:'c25', app:'SMART ReplySuite', desc:'Wenn lokaler Import scheitert, versucht die App PDF-Text im Browser zu extrahieren.'},
+  {name:'Chunked Upload',           cat:'c25', app:'SMART ReplySuite', desc:'Große Dateien können stückweise an den lokalen Importserver übertragen werden.'},
+  {name:'DOCX-Import',              cat:'c25', app:'SMART ReplySuite', desc:'Import über Mammoth im lokalen Server.'},
+  {name:'PDF-Import',               cat:'c25', app:'SMART ReplySuite', desc:'Import über lokalen Server oder Browser-Fallback.'},
+  {name:'Textbereinigung',          cat:'c25', app:'SMART ReplySuite', desc:'PDF-Footer, Header, Randtexte und lange Fließtextzeilen werden nachträglich bereinigt.'},
+  {name:'TXT / MD Import',          cat:'c25', app:'SMART ReplySuite', desc:'Direkte Textübernahme ohne Konvertierung.'},
+
+  // ── Browser-Speicher ──
+  {name:'JSON Export (ReplySuite)', cat:'c3',  app:'SMART ReplySuite', desc:'Lokale App-Daten können als .json gesichert werden.'},
+  {name:'JSON Import (ReplySuite)', cat:'c3',  app:'SMART ReplySuite', desc:'Gesicherte lokale App-Daten können wieder eingespielt werden.'},
+  {name:'localStorage (ReplySuite)',cat:'c3',  app:'SMART ReplySuite', desc:'Speichert App-Daten, Vorlagen, Stilprofile, Verlauf, API-Key, Sidebar-Zustand.'},
+  {name:'sessionStorage (ReplySuite)',cat:'c3',app:'SMART ReplySuite', desc:'Speichert temporäre Sitzungszustände, z.B. API-Key-Verbindung und Onboarding-Zustand.'},
+
+  // ── Lokaler Server ──
+  {name:'/api/anthropic/messages',  cat:'c26', app:'SMART ReplySuite', desc:'Proxy-Endpunkt für Anthropic bei eigenem API-Key.'},
+  {name:'/api/license/checkout',    cat:'c26', app:'SMART ReplySuite', desc:'Lokaler Weiterleitungs-/Proxy-Endpunkt für Checkout.'},
+  {name:'/api/source/extract',      cat:'c26', app:'SMART ReplySuite', desc:'Endpunkt für Dateiimport: PDF, DOCX, TXT/MD.'},
+  {name:'/api/source/upload-chunk', cat:'c26', app:'SMART ReplySuite', desc:'Endpunkt für Chunked Upload größerer Dateien.'},
+  {name:'Lokale URL',               cat:'c26', app:'SMART ReplySuite', desc:'App läuft lokal unter http://127.0.0.1:8173/'},
+  {name:'Node.js HTTP Server',      cat:'c26', app:'SMART ReplySuite', desc:'localProxyServer.js stellt die App lokal bereit. Start über npm start.'},
+
+  // ── Paketierung und Build ──
+  {name:'Build-Skripte',            cat:'c27', app:'SMART ReplySuite', desc:'package:macos, package:windows, vendor:macos, icon:ico'},
+  {name:'Dist-Archiv',              cat:'c27', app:'SMART ReplySuite', desc:'dist/SMART-ReplySuite-macOS-arm64.zip'},
+  {name:'macOS App Bundle',         cat:'c27', app:'SMART ReplySuite', desc:'SMART ReplySuite.app — gepackte macOS-Anwendung.'},
+  {name:'Windows Starter',          cat:'c27', app:'SMART ReplySuite', desc:'SMART ReplySuite starten.vbs — Starter für Windows-Umgebungen.'},
+
+  // ── UI-Bereiche ──
+  {name:'Datensicherung (UI)',      cat:'c18', app:'SMART ReplySuite', desc:'Export, Import und Diagnose lokaler Daten.'},
+  {name:'Hilfe (UI)',               cat:'c18', app:'SMART ReplySuite', desc:'Bedienhinweise, Workflow, Datenhinweise, Fehlerhinweise und Version.'},
+  {name:'Neue Antwort (UI)',        cat:'c18', app:'SMART ReplySuite', desc:'Hauptarbeitsbereich für Quelle, Ziel/Hinweise, Antworterstellung, Ergebnis und Verfeinerung.'},
+  {name:'Stilprofile (UI)',         cat:'c18', app:'SMART ReplySuite', desc:'Kommunikationsprofile mit Stilakzenten und No-Gos anlegen und verwalten.'},
+  {name:'Verlauf (UI)',             cat:'c18', app:'SMART ReplySuite', desc:'Lokal gespeicherte Antwortakten einsehen und laden.'},
+  {name:'Vorlagen (UI)',            cat:'c18', app:'SMART ReplySuite', desc:'Anlegen, bearbeiten, suchen, filtern, duplizieren und nutzen von Antwortvorlagen.'},
+  {name:'Zugang & Abrechnung (UI)',  cat:'c18', app:'SMART ReplySuite', desc:'Login, Trial, Lizenz, BuiltSmart AI Credits, eigener API-Key, Checkout, Abo und Rechnungen.'},
+
+
 ];
 
 // ── STATE ──────────────────────────────────────────────────
@@ -436,7 +533,7 @@ function render(){
 
 function card(i){
   const cat = catObj(i.cat);
-  const appColor = 'c1'; // could vary per app later
+  const appColor = i.app === 'SMART ReplySuite' ? 'c7' : 'c1';
   return `<div class="item-card">
     <div>
       <div class="item-name">${i.name}</div>
