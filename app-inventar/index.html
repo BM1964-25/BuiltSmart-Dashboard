@@ -141,9 +141,23 @@ const CATS = [
   { id:'c25', label:'Dateiimport',                   stripe:'stripe1'  },
   { id:'c26', label:'Lokaler Server',                stripe:'stripe2'  },
   { id:'c27', label:'Paketierung und Build',         stripe:'stripe3'  },
+  { id:'c28', label:'Frontend / App-Struktur',       stripe:'stripe4'  },
+  { id:'c29', label:'Datenmodell',                   stripe:'stripe5'  },
+  { id:'c30', label:'Bibliothek / Eintragsverwaltung',stripe:'stripe6' },
+  { id:'c31', label:'Editor / Inhalt',               stripe:'stripe7'  },
+  { id:'c32', label:'Eintragstypen',                 stripe:'stripe8'  },
+  { id:'c33', label:'Vorschau / Markdown',           stripe:'stripe9'  },
+  { id:'c34', label:'Anhaenge',                      stripe:'stripe10' },
+  { id:'c35', label:'Supabase Backend',              stripe:'stripe11' },
+  { id:'c36', label:'Stripe / Checkout',             stripe:'stripe12' },
+  { id:'c37', label:'Import / Export / Backup',      stripe:'stripe1'  },
+  { id:'c38', label:'Demo- und Startdaten',          stripe:'stripe2'  },
+  { id:'c39', label:'Lokale Starter / App-Launcher', stripe:'stripe3'  },
+  { id:'c40', label:'Assets / Manifest',             stripe:'stripe4'  },
+  { id:'c41', label:'Dokumentation',                 stripe:'stripe5'  },
 ];
 
-const APPS = ['SMART RISK Vertragsanalyse','SMART ReplySuite'];
+const APPS = ['SMART RISK Vertragsanalyse','SMART ReplySuite','SMART SnippetFlow'];
 
 const ITEMS = [
   // ── 1. Externe Bibliotheken ──
@@ -457,6 +471,247 @@ const ITEMS = [
   {name:'Zugang & Abrechnung (UI)',  cat:'c18', app:'SMART ReplySuite', desc:'Login, Trial, Lizenz, BuiltSmart AI Credits, eigener API-Key, Checkout, Abo und Rechnungen.'},
 
 
+  // ══════════════════════════════════════════════════════════
+  // SMART SnippetFlow
+  // ══════════════════════════════════════════════════════════
+
+  // ── Externe Bibliotheken ──
+  {name:'@monaco-editor/react',     cat:'c1',  app:'SMART SnippetFlow', desc:'React-Wrapper für Monaco Editor.'},
+  {name:'class-variance-authority', cat:'c1',  app:'SMART SnippetFlow', desc:'Variantenlogik für wiederverwendbare UI-Komponenten.'},
+  {name:'clsx',                     cat:'c1',  app:'SMART SnippetFlow', desc:'Konditionale CSS-Klassen.'},
+  {name:'Lucide React',             cat:'c1',  app:'SMART SnippetFlow', desc:'Icon-Bibliothek für Navigation, Buttons, Statusanzeigen, Editor-Werkzeuge, Hilfe und Datenmanagement.'},
+  {name:'Mammoth (SnippetFlow)',    cat:'c1',  app:'SMART SnippetFlow', desc:'Liest .docx-Dateien aus und extrahiert Rohtext.'},
+  {name:'Monaco Editor',            cat:'c1',  app:'SMART SnippetFlow', desc:'Code-Editor für Code-Snippets mit Sprachmodus und Editor-Komfort.'},
+  {name:'PostCSS / Autoprefixer',   cat:'c1',  app:'SMART SnippetFlow', desc:'CSS-Verarbeitung im Build.'},
+  {name:'Radix Slot',               cat:'c1',  app:'SMART SnippetFlow', desc:'Basis für Button-Kompositionen in der UI.'},
+  {name:'React',                    cat:'c1',  app:'SMART SnippetFlow', desc:'Frontend-Framework für die App-Oberfläche, Navigation, Editorbereiche, Einstellungen, Hilfe und Zustandsverwaltung.'},
+  {name:'React DOM',                cat:'c1',  app:'SMART SnippetFlow', desc:'Rendert die React-App in index.html.'},
+  {name:'Supabase CLI',             cat:'c1',  app:'SMART SnippetFlow', desc:'Entwicklungs- und Deployment-Werkzeug für Supabase Edge Functions und Datenbank-Migrationen.'},
+  {name:'Supabase JS',              cat:'c1',  app:'SMART SnippetFlow', desc:'Wird im Browser geladen für Magic-Link-Login, Session, RPCs und zentrale Lizenz-/Credit-Prüfung.'},
+  {name:'Tailwind CSS',             cat:'c1',  app:'SMART SnippetFlow', desc:'Utility-CSS-System für Layout, Farben, Abstände, Zustandsdarstellung und responsive Oberfläche.'},
+  {name:'tailwind-merge',           cat:'c1',  app:'SMART SnippetFlow', desc:'Zusammenführen und Bereinigen von Tailwind-Klassen.'},
+  {name:'TypeScript',               cat:'c1',  app:'SMART SnippetFlow', desc:'Typisierung für Datenmodelle, UI-Komponenten, Services, Lizenzlogik und KI-Antworten.'},
+  {name:'Vite',                     cat:'c1',  app:'SMART SnippetFlow', desc:'Build- und Entwicklungsumgebung für die Browser-App.'},
+
+  // ── Frontend / App-Struktur ──
+  {name:'src/App.tsx',              cat:'c28', app:'SMART SnippetFlow', desc:'Zentrale App-Orchestrierung: aktive Ansicht, Lizenzstatus, KI-Status, globale Suche, Hilfe-Panel, Zugriffssperre und lokaler Eigennutzungsmodus.'},
+  {name:'src/components/ui/badge.tsx',cat:'c28',app:'SMART SnippetFlow', desc:'Wiederverwendbare Badge-Komponente für Status, Typen, Tags und Metadaten.'},
+  {name:'src/components/ui/button.tsx',cat:'c28',app:'SMART SnippetFlow', desc:'Wiederverwendbare Button-Komponente mit Varianten.'},
+  {name:'src/components/ui/input.tsx',cat:'c28',app:'SMART SnippetFlow', desc:'Wiederverwendbare Input-Komponente.'},
+  {name:'src/layout/AppShell.tsx',  cat:'c28', app:'SMART SnippetFlow', desc:'Rahmen der App mit Header, Sidebar, Navigation, Datensicherung, Lizenz-/KI-/Speicherstatus und Footer.'},
+  {name:'src/main.tsx',             cat:'c28', app:'SMART SnippetFlow', desc:'Startpunkt der React-App. Bindet globale Styles ein und rendert App.'},
+  {name:'src/pages/HelpPage.tsx',   cat:'c28', app:'SMART SnippetFlow', desc:'Hilfeseite und Hilfe-Panel für Nutzung, Eintragstypen, KI-Funktionen, Markdown, Datenschutz und Lizenz-/KI-Logik.'},
+  {name:'src/pages/LibraryPage.tsx',cat:'c28', app:'SMART SnippetFlow', desc:'Hauptbereich der Bibliothek: Einträge, Filter, Suche, Favoriten, Auswahl, Editor, Metadaten, KI-Funktionen, Vorschau, Anhänge, Typwechsel und Löschdialoge.'},
+  {name:'src/pages/SettingsPage.tsx',cat:'c28',app:'SMART SnippetFlow', desc:'Einstellungen für Lizenz, Magic-Link, Free Trial, Jahreslizenz, BuiltSmart AI Guthaben, eigenen Anthropic API-Key, Datenmanagement, JSON-Export/Import und Speicherübersicht.'},
+  {name:'src/styles/globals.css',   cat:'c28', app:'SMART SnippetFlow', desc:'Globale Tailwind-Styles, Basistypografie und Design-Tokens.'},
+  {name:'src/utils/cn.ts',          cat:'c28', app:'SMART SnippetFlow', desc:'Hilfsfunktion zum Zusammenführen von Klassen mit clsx und tailwind-merge.'},
+
+  // ── Datenmodell ──
+  {name:'AiPromptAnalysisRequest',  cat:'c29', app:'SMART SnippetFlow', desc:'Anfrageformat für KI-Metadaten und Prompt-Varianten.'},
+  {name:'AiPromptAnalysisResult',   cat:'c29', app:'SMART SnippetFlow', desc:'Antwortformat für KI-generierte Titel, Beschreibungen, Tags, Kategorie und Varianten.'},
+  {name:'EntryAttachment',          cat:'c29', app:'SMART SnippetFlow', desc:'Speichert lokale Anhänge als Data-URL mit Name, Typ, Größe und Erstellzeitpunkt.'},
+  {name:'EntryType',                cat:'c29', app:'SMART SnippetFlow', desc:'Unterstützte Eintragstypen: prompt, code, workflow, note, instruction, link.'},
+  {name:'FieldOption',              cat:'c29', app:'SMART SnippetFlow', desc:'Typbezogene Feldoptionen, z.B. Prompt-System, Sprache, Bereich oder Notizart.'},
+  {name:'LibraryCategory',          cat:'c29', app:'SMART SnippetFlow', desc:'Kategorien für Einträge.'},
+  {name:'LibraryEntry',             cat:'c29', app:'SMART SnippetFlow', desc:'Zentrales Datenobjekt: Titel, Beschreibung, Inhalt, URL, Sprache, Feldwert, Kategorie, Tags, Favorit, Vorschau, Prompt-Varianten und Anhänge.'},
+  {name:'LicenseState',             cat:'c29', app:'SMART SnippetFlow', desc:'Lokaler Lizenzstatus mit Schlüssel, Status, Ablaufdatum, Remote-Status und Meldung.'},
+  {name:'PromptVariant',            cat:'c29', app:'SMART SnippetFlow', desc:'Speichert manuelle oder KI-generierte Prompt-Varianten mit Label, Inhalt, Notiz, Bewertung und Quelle.'},
+
+  // ── Bibliothek / Eintragsverwaltung ──
+  {name:'convertEntryType()',       cat:'c30', app:'SMART SnippetFlow', desc:'Erlaubt Typwechsel eines bestehenden Eintrags, z.B. Prompt zu Anleitung oder Notiz.'},
+  {name:'createDashboardStats()',   cat:'c30', app:'SMART SnippetFlow', desc:'Berechnet Anzahl je Typ und Favoriten.'},
+  {name:'DashboardList',            cat:'c30', app:'SMART SnippetFlow', desc:'Einklappbare Listen für Übersichtsbereiche.'},
+  {name:'deleteEntry()',            cat:'c30', app:'SMART SnippetFlow', desc:'Löscht Einträge aus der lokalen Bibliothek.'},
+  {name:'duplicateEntry()',         cat:'c30', app:'SMART SnippetFlow', desc:'Erstellt Kopien vorhandener Einträge.'},
+  {name:'filteredEntries',          cat:'c30', app:'SMART SnippetFlow', desc:'Filtert nach Typ und Suchbegriff.'},
+  {name:'handleDashboardStatFilter()',cat:'c30',app:'SMART SnippetFlow', desc:'Nutzt Statistik-Kacheln als Schnellfilter.'},
+  {name:'handleSelectEntry()',      cat:'c30', app:'SMART SnippetFlow', desc:'Zuverlässige Auswahl von Listeneinträgen inklusive direkter Synchronisierung mit dem Editor-Draft.'},
+  {name:'handleTypeFilterChange()', cat:'c30', app:'SMART SnippetFlow', desc:'Wechsel zwischen Alle Typen, Prompt, Code, Workflow, Notiz, Anleitung und Link.'},
+  {name:'recentEntries',            cat:'c30', app:'SMART SnippetFlow', desc:'Zeigt zuletzt bearbeitete Einträge.'},
+  {name:'saveEntry()',              cat:'c30', app:'SMART SnippetFlow', desc:'Speichert neue oder geänderte Einträge lokal und setzt sie nach vorn in die Bibliothek.'},
+  {name:'selectEntryById()',        cat:'c30', app:'SMART SnippetFlow', desc:'Direkte Auswahl eines Eintrags per ID mit Synchronisierung des Editor-Drafts.'},
+  {name:'toggleFavorite()',         cat:'c30', app:'SMART SnippetFlow', desc:'Schaltet Favoritenstatus eines Eintrags.'},
+  {name:'useLibraryEntries()',      cat:'c30', app:'SMART SnippetFlow', desc:'Hook für Laden, Filtern, Speichern, Duplizieren, Favorisieren, Löschen, Kategorien und Feldoptionen.'},
+
+  // ── Editor / Inhalt ──
+  {name:'copyTextToClipboard()',    cat:'c31', app:'SMART SnippetFlow', desc:'Kopiert Inhalte mit Clipboard-API oder Textarea-Fallback.'},
+  {name:'EntryContentEditor',       cat:'c31', app:'SMART SnippetFlow', desc:'Editor für Inhalte. Für Code: Monaco Editor. Für Texttypen: Markdown-orientierter Texteditor.'},
+  {name:'handleClearContent()',     cat:'c31', app:'SMART SnippetFlow', desc:'Leert den Inhalt des aktuellen Eintrags.'},
+  {name:'isHeadingCandidate()',     cat:'c31', app:'SMART SnippetFlow', desc:'Erkennt mögliche Überschriften im Text.'},
+  {name:'isMarkdownLine()',         cat:'c31', app:'SMART SnippetFlow', desc:'Erkennt vorhandene Markdown-Zeilen.'},
+  {name:'Markdown-Werkzeuge',       cat:'c31', app:'SMART SnippetFlow', desc:'Buttons für Fett, Listen, nummerierte Listen, Einzug, Undo, Kopieren und Strukturieren.'},
+  {name:'normalizeMarkdownSpacing()',cat:'c31',app:'SMART SnippetFlow', desc:'Bereinigt Leerzeilen und Abstände in Markdown.'},
+  {name:'structureTextAsMarkdown()',cat:'c31', app:'SMART SnippetFlow', desc:'Strukturiert einfachen Text automatisch in Markdown mit Überschriften und Abschnitten.'},
+  {name:'undoLastContentChange()',  cat:'c31', app:'SMART SnippetFlow', desc:'Einfacher Undo-Stack für Texteditor-Änderungen.'},
+
+  // ── KI-Funktionen ──
+  {name:'analyzePromptInBrowser()', cat:'c2',  app:'SMART SnippetFlow', desc:'Analysiert Einträge, erzeugt Titel, Beschreibung, Tags, Kategorie und optional Prompt-Varianten.'},
+  {name:'Anthropic Messages API',   cat:'c2',  app:'SMART SnippetFlow', desc:'KI-Anfragen werden an https://api.anthropic.com/v1/messages weitergeleitet.'},
+  {name:'canUseLocalAnthropicProxy()',cat:'c2',app:'SMART SnippetFlow', desc:'Erkennt lokale Laufzeit unter 127.0.0.1:4827.'},
+  {name:'getAnthropicProxyUrls()',  cat:'c2',  app:'SMART SnippetFlow', desc:'Ermittelt passende Proxy-Endpunkte für lokale App oder Vercel-Deployment.'},
+  {name:'KI-Metadatenmodus',        cat:'c2',  app:'SMART SnippetFlow', desc:'Beim ersten Lauf werden leere/default Felder gefüllt. Bei erneutem Klick werden Titel, Beschreibung und Kategorie aktualisiert; Tags zusammengeführt.'},
+  {name:'Modell claude-sonnet-4-5', cat:'c2',  app:'SMART SnippetFlow', desc:'Standardmodell: claude-sonnet-4-5-20250929.'},
+  {name:'normalizeAiPromptAnalysisResult()',cat:'c2',app:'SMART SnippetFlow', desc:'Normalisiert KI-Antworten in das interne Ergebnisformat.'},
+  {name:'parseJsonObject()',        cat:'c2',  app:'SMART SnippetFlow', desc:'Rettet JSON aus Text- oder Markdown-Codeblock-Antworten.'},
+  {name:'Prompt-Varianten (KI)',    cat:'c2',  app:'SMART SnippetFlow', desc:'Nur für Typ Prompt. Maximal drei Varianten, Quelle ai oder manual.'},
+  {name:'requestAnthropicProxy()',  cat:'c2',  app:'SMART SnippetFlow', desc:'Sendet KI-Anfragen über lokalen Proxy, Vercel API Route oder Fallback zur BuiltSmart AI Function.'},
+  {name:'src/services/browserAi.ts',cat:'c2', app:'SMART SnippetFlow', desc:'Zentrale Browser-KI-Schicht für Verbindungstest, Metadatenanalyse, Prompt-Varianten, Proxy-Auswahl, Fehlertexte und Antwortnormalisierung.'},
+  {name:'testBrowserAnthropicConnection()',cat:'c2',app:'SMART SnippetFlow', desc:'Prüft den gespeicherten eigenen Anthropic API-Key.'},
+
+  // ── Lokaler KI-Proxy ──
+  {name:'/api/health',              cat:'c26', app:'SMART SnippetFlow', desc:'Health-Endpunkt für lokalen Proxy.'},
+  {name:'/api/anthropic/messages (SF)',cat:'c26',app:'SMART SnippetFlow', desc:'Lokaler POST-Endpunkt für Anthropic-Anfragen mit Header x-snippetflow-api-key.'},
+  {name:'CORS / Private Network',   cat:'c26', app:'SMART SnippetFlow', desc:'Der lokale Server setzt CORS-Header inklusive access-control-allow-private-network.'},
+  {name:'logs/local-server.log',    cat:'c26', app:'SMART SnippetFlow', desc:'Lokales Log für Serverstart, Proxy-Anfragen und Upstream-Fehler.'},
+  {name:'server/local-server.mjs',  cat:'c26', app:'SMART SnippetFlow', desc:'Lokaler Node-Server für App-Auslieferung und Anthropic-Proxy.'},
+  {name:'Static File Serving',      cat:'c26', app:'SMART SnippetFlow', desc:'Liefert Dateien aus dist und fällt für unbekannte Routen auf index.html zurück.'},
+
+  // ── Vercel API Route ──
+  {name:'api/anthropic/messages.js',cat:'c26', app:'SMART SnippetFlow', desc:'Serverless API Route für Vercel. Leitet KI-Anfragen mit lokal gespeichertem Anthropic API-Key an Anthropic weiter.'},
+  {name:'readJsonBody()',           cat:'c26', app:'SMART SnippetFlow', desc:'Liest JSON-Body in Vercel-Umgebung robust aus Objekt, String oder Stream.'},
+  {name:'sanitizeApiKey()',         cat:'c26', app:'SMART SnippetFlow', desc:'Bereinigt API-Key aus Headern.'},
+  {name:'setCorsHeaders()',         cat:'c26', app:'SMART SnippetFlow', desc:'Setzt CORS für die Vercel API Route.'},
+
+  // ── BuiltSmart / Lizenz / Zugriff ──
+  {name:'allowLocalPersonalUse()',  cat:'c17', app:'SMART SnippetFlow', desc:'Erlaubt lokalen Zugriff, ohne die Verkaufsversion zu umgehen.'},
+  {name:'appKey (smart-snippetflow)',cat:'c17',app:'SMART SnippetFlow', desc:'App-Schlüssel: smart-snippetflow.'},
+  {name:'builtSmartLicenseConfig',  cat:'c17', app:'SMART SnippetFlow', desc:'Konfiguration mit appKey, Supabase URL, Supabase Anon Key, Checkout Function URL, AI Function URL und Trial-Credits.'},
+  {name:'checkAppAccess()',         cat:'c17', app:'SMART SnippetFlow', desc:'Prüft Lizenz, Trial und KI-Guthaben über Supabase Edge Function.'},
+  {name:'completeMagicLinkFromUrl()',cat:'c17',app:'SMART SnippetFlow', desc:'Schließt Magic-Link-Login ab und speichert die Session lokal.'},
+  {name:'createCheckoutSession()',  cat:'c17', app:'SMART SnippetFlow', desc:'Startet Checkout für Jahreslizenz oder KI-Guthaben.'},
+  {name:'getAiCreditBalance()',     cat:'c17', app:'SMART SnippetFlow', desc:'Liest KI-Guthaben.'},
+  {name:'isLocalPersonalUseRuntime()',cat:'c17',app:'SMART SnippetFlow', desc:'Erkennt lokale Eigennutzung unter 127.0.0.1:4827.'},
+  {name:'localPersonalAccess',      cat:'c17', app:'SMART SnippetFlow', desc:'Lokaler Eigennutzungsmodus für 127.0.0.1:4827.'},
+  {name:'loginWithMagicLink()',     cat:'c17', app:'SMART SnippetFlow', desc:'Startet Supabase Magic-Link-Login.'},
+  {name:'redeemLicenseCode()',      cat:'c17', app:'SMART SnippetFlow', desc:'Aktiviert Lizenzschlüssel.'},
+  {name:'runAiAction()',            cat:'c17', app:'SMART SnippetFlow', desc:'Führt BuiltSmart AI Aktionen über Supabase Edge Function aus.'},
+  {name:'src/lib/builtsmartLicense.ts',cat:'c17',app:'SMART SnippetFlow', desc:'Client für BuiltSmart-AI-Zugriff, Supabase, Magic-Link, Lizenzstatus, Free Trial, Checkout, KI-Guthaben und eigenen API-Key.'},
+  {name:'startTrial()',             cat:'c17', app:'SMART SnippetFlow', desc:'Startet Free Trial für angemeldete Nutzer.'},
+
+  // ── Supabase Backend ──
+  {name:'add_ai_credits (RPC)',     cat:'c35', app:'SMART SnippetFlow', desc:'Supabase RPC für Credit-Buchungen.'},
+  {name:'generate_license_key (RPC)',cat:'c35',app:'SMART SnippetFlow', desc:'Supabase RPC für Lizenzschlüssel.'},
+  {name:'supabase/functions/check-app-access',cat:'c35',app:'SMART SnippetFlow', desc:'Prüft Lizenzstatus, Trialstatus und KI-Credits.'},
+  {name:'supabase/functions/create-checkout-session',cat:'c35',app:'SMART SnippetFlow', desc:'Erzeugt Stripe Checkout Sessions für Jahreslizenz oder KI-Guthaben.'},
+  {name:'supabase/functions/get-ai-credit-balance',cat:'c35',app:'SMART SnippetFlow', desc:'Liefert aktuelles KI-Guthaben.'},
+  {name:'supabase/functions/redeem-license-code',cat:'c35',app:'SMART SnippetFlow', desc:'Löst Lizenzschlüssel ein und verknüpft ihn mit Nutzerzugriff.'},
+  {name:'supabase/functions/run-ai-action',cat:'c35',app:'SMART SnippetFlow', desc:'Zentrale BuiltSmart AI Function für Verbindungstest, Promptanalyse, Credit-Abzug und optional eigenen API-Key.'},
+  {name:'supabase/functions/start-trial',cat:'c35',app:'SMART SnippetFlow', desc:'Erzeugt 3-Tage-Free-Trial und schreibt Test-Credits.'},
+  {name:'supabase/functions/stripe-webhook',cat:'c35',app:'SMART SnippetFlow', desc:'Verarbeitet Stripe Checkout, Subscription-, Invoice- und Refund-Events.'},
+  {name:'supabase/migrations/license_system.sql',cat:'c35',app:'SMART SnippetFlow', desc:'Datenmodell für Kunden, Produkte, Lizenzen, Lizenzschlüssel, Aktivierungen, Stripe-Events und Audit-Log.'},
+  {name:'supabase/migrations/buildsmart_ai_access.sql',cat:'c35',app:'SMART SnippetFlow', desc:'Erweiterung für App-Zugriff, Free Trial und KI-Credits.'},
+
+  // ── Stripe / Checkout ──
+  {name:'Jahreslizenz Checkout',    cat:'c36', app:'SMART SnippetFlow', desc:'Checkout-Typ annual_license.'},
+  {name:'KI-Guthaben Checkout',     cat:'c36', app:'SMART SnippetFlow', desc:'Checkout-Typ ai_credits.'},
+  {name:'Lizenz-Audit',             cat:'c36', app:'SMART SnippetFlow', desc:'Schreibt technische Ereignisse in Audit-Log.'},
+  {name:'Stripe Checkout',          cat:'c36', app:'SMART SnippetFlow', desc:'Vorbereitet über create-checkout-session.'},
+  {name:'Stripe Webhook',           cat:'c36', app:'SMART SnippetFlow', desc:'Erstellt/aktualisiert Lizenzen, Kunden, Subscriptions, Rechnungsstatus und KI-Credits.'},
+
+  // ── Browser-Speicher ──
+  {name:'browserStorageKeys',       cat:'c3',  app:'SMART SnippetFlow', desc:'Speicherkeys für Einträge, Kategorien, Feldoptionen, Lizenz, Auto-Backup und KI-Einstellungen.'},
+  {name:'getBrowserDataOverview()', cat:'c3',  app:'SMART SnippetFlow', desc:'Zählt Einträge, Kategorien, Tags, Favoriten, Anhänge, Lizenz und API-Key-Status.'},
+  {name:'getBrowserStorageReportAsync()',cat:'c3',app:'SMART SnippetFlow', desc:'Ermittelt Speicherverbrauch über navigator.storage.estimate().'},
+  {name:'IndexedDB',                cat:'c3',  app:'SMART SnippetFlow', desc:'Primärer Browser-Speicher. Datenbank: smart-snippetflow-browser, Store: keyValue.'},
+  {name:'localStorage (SnippetFlow)',cat:'c3', app:'SMART SnippetFlow', desc:'Fallback und Spiegelung für wichtige Daten.'},
+  {name:'readBrowserListAsync()',   cat:'c3',  app:'SMART SnippetFlow', desc:'Listenbasierter Speicher für Einträge, Kategorien und Feldoptionen.'},
+  {name:'readBrowserSettingAsync()',cat:'c3',  app:'SMART SnippetFlow', desc:'Speichert App-Einstellungen, z.B. Anthropic-Modell/API-Key-Kopie.'},
+  {name:'readBrowserValue()',       cat:'c3',  app:'SMART SnippetFlow', desc:'Lesen mit IndexedDB-First-Strategie und localStorage-Fallback.'},
+  {name:'writeBrowserAutoBackupAsync()',cat:'c3',app:'SMART SnippetFlow', desc:'Erstellt automatische lokale Sicherung der Bibliothek.'},
+  {name:'writeBrowserListAsync()',  cat:'c3',  app:'SMART SnippetFlow', desc:'Schreibt Listen in IndexedDB oder localStorage-Fallback.'},
+  {name:'writeBrowserSettingAsync()',cat:'c3', app:'SMART SnippetFlow', desc:'Schreibt App-Einstellungen in den Browser-Speicher.'},
+  {name:'writeBrowserValue()',      cat:'c3',  app:'SMART SnippetFlow', desc:'Schreiben mit IndexedDB-First-Strategie und localStorage-Fallback.'},
+
+  // ── Import / Export / Backup ──
+  {name:'createBrowserExportPayload()',cat:'c37',app:'SMART SnippetFlow', desc:'Erstellt JSON-Export für gesamte Bibliothek oder typbezogenen Export.'},
+  {name:'Export-Scope',             cat:'c37', app:'SMART SnippetFlow', desc:'Unterstützt all, prompt, code, workflow, note, instruction, link.'},
+  {name:'importBrowserPayload()',   cat:'c37', app:'SMART SnippetFlow', desc:'Importiert JSON-Sicherung mit Einträgen, Kategorien, Feldoptionen und Lizenzstatus.'},
+  {name:'JSON-Sicherung',           cat:'c37', app:'SMART SnippetFlow', desc:'Komplettzsicherung über Sidebar und Einstellungen.'},
+  {name:'JSON-Wiederherstellung',   cat:'c37', app:'SMART SnippetFlow', desc:'Importiert Bibliothek und lädt die App neu.'},
+
+  // ── Vorschau / Markdown ──
+  {name:'createPreviewDescriptor()',cat:'c33', app:'SMART SnippetFlow', desc:'Erzeugt Vorschau-Descriptor aus Eintrag und Preview-Art.'},
+  {name:'createSandboxPreviewHtml()',cat:'c33',app:'SMART SnippetFlow', desc:'Erstellt HTML für iframe/srcdoc-Vorschau.'},
+  {name:'createScrollableHtmlPreview()',cat:'c33',app:'SMART SnippetFlow', desc:'Ergänzt HTML-Vorschauen mit Basis-Styles.'},
+  {name:'escapeHtml()',             cat:'c33', app:'SMART SnippetFlow', desc:'HTML-Escaping für sichere Vorschau.'},
+  {name:'markdownToHtml()',         cat:'c33', app:'SMART SnippetFlow', desc:'Minimaler Markdown-Renderer für Überschriften, Listen, Absätze und Fettmarkierung.'},
+  {name:'src/services/preview.ts',  cat:'c33', app:'SMART SnippetFlow', desc:'Erzeugt sichere Vorschau-Dokumente für HTML, CSS, JavaScript und Markdown.'},
+
+  // ── Anhänge ──
+  {name:'Attachment-Download',      cat:'c34', app:'SMART SnippetFlow', desc:'Anhänge können aus der App wieder heruntergeladen werden.'},
+  {name:'EntryAttachments',         cat:'c34', app:'SMART SnippetFlow', desc:'UI für Anhänge am Eintrag.'},
+  {name:'isAllowedAttachment()',    cat:'c34', app:'SMART SnippetFlow', desc:'Prüft Dateityp und erlaubte Endung.'},
+  {name:'Maximalgroesse 5 MB',      cat:'c34', app:'SMART SnippetFlow', desc:'Maximalgröße pro Anhang: 5 MB.'},
+  {name:'readFileAsDataUrl()',      cat:'c34', app:'SMART SnippetFlow', desc:'Liest Dateien als Data-URL für lokale Speicherung.'},
+  {name:'Unterstützte Dateitypen',  cat:'c34', app:'SMART SnippetFlow', desc:'PNG, JPG, JPEG, WebP, GIF, PDF, TXT, MD, JSON.'},
+
+  // ── Eintragstypen ──
+  {name:'Anleitung',                cat:'c32', app:'SMART SnippetFlow', desc:'Markdown-Anleitungen analog Notiz, ohne Variantenbildung.'},
+  {name:'Code',                     cat:'c32', app:'SMART SnippetFlow', desc:'Snippets und technische Muster mit Sprache, Monaco Editor und optionaler Vorschau.'},
+  {name:'Link',                     cat:'c32', app:'SMART SnippetFlow', desc:'Webseiten, Quellen und Referenzen mit URL, Notiz, Tags und Öffnen-Button.'},
+  {name:'Notiz',                    cat:'c32', app:'SMART SnippetFlow', desc:'Markdown-Notizen ohne Variantenbildung.'},
+  {name:'Prompt',                   cat:'c32', app:'SMART SnippetFlow', desc:'KI-Anweisungen und Vorlagen. Unterstützt KI-Variantenbildung.'},
+  {name:'Workflow',                 cat:'c32', app:'SMART SnippetFlow', desc:'Schrittfolgen und Arbeitsroutinen mit Markdown-Vorschau.'},
+  // Typbezogene Felder
+  {name:'getDefaultFieldValue()',   cat:'c32', app:'SMART SnippetFlow', desc:'Setzt Defaultwerte, z.B. Allgemein, Text, Markdown oder Quelle.'},
+  {name:'getFieldKeyForType()',     cat:'c32', app:'SMART SnippetFlow', desc:'Ordnet EntryType dem passenden Feldtyp zu.'},
+  {name:'getFieldLabelForType()',   cat:'c32', app:'SMART SnippetFlow', desc:'Liefert Feldlabel je Typ.'},
+  {name:'getLinkDomain()',          cat:'c32', app:'SMART SnippetFlow', desc:'Extrahiert Domain aus Link-URLs.'},
+  {name:'getPreviewOptionsForType()',cat:'c32',app:'SMART SnippetFlow', desc:'Legt Vorschauoptionen je Typ fest.'},
+  {name:'normalizeUrl()',           cat:'c32', app:'SMART SnippetFlow', desc:'Normalisiert Link-URLs.'},
+
+  // ── UI / Navigation / Workflow ──
+  {name:'CollapsiblePanel',         cat:'c18', app:'SMART SnippetFlow', desc:'Einklappbare UI-Sektionen.'},
+  {name:'ConfirmDialog',            cat:'c18', app:'SMART SnippetFlow', desc:'Bestätigungsdialog für ungespeicherte Änderungen und Löschen.'},
+  {name:'Datensicherung Sidebar',   cat:'c18', app:'SMART SnippetFlow', desc:'Schneller JSON-Export und JSON-Import.'},
+  {name:'Filterbereich Bibliothek', cat:'c18', app:'SMART SnippetFlow', desc:'Suche, Kategorien, Tags, Typfilter und Reset.'},
+  {name:'Header (SnippetFlow)',     cat:'c18', app:'SMART SnippetFlow', desc:'Logo, App-Name, Kurzbeschreibung und Hilfe-Button.'},
+  {name:'Metadatenbereich',         cat:'c18', app:'SMART SnippetFlow', desc:'Titel, Beschreibung, Typ, Kategorie, typbezogenes Feld, Tags, Tag-Cloud und Kategorieverwaltung.'},
+  {name:'Sidebar (SnippetFlow)',    cat:'c18', app:'SMART SnippetFlow', desc:'Navigation zu Bibliothek, Prompt, Code, Workflow, Notiz, Anleitung, Link, Favoriten, Einstellungen und Hilfe.'},
+  {name:'Statistik-Kacheln',       cat:'c18', app:'SMART SnippetFlow', desc:'Klickbare Zähler für Prompt, Code, Workflow, Notiz, Anleitung, Link und Favoriten.'},
+  {name:'Statusbox Sidebar',        cat:'c18', app:'SMART SnippetFlow', desc:'Zeigt Lizenz, KI-Zugang und Browser-Speicher.'},
+  {name:'WorkflowTimeline',         cat:'c18', app:'SMART SnippetFlow', desc:'Visualisiert Bearbeitungsfortschritt für Inhalt, Struktur, Metadaten und Speichern.'},
+
+  // ── Demo- und Startdaten ──
+  {name:'Demo-Einträge',            cat:'c38', app:'SMART SnippetFlow', desc:'Enthalten Prompt, Code, Workflow, Notiz, Anleitung und Link.'},
+  {name:'Demo-Feldoptionen',        cat:'c38', app:'SMART SnippetFlow', desc:'Startwerte für Prompt-System, Code-Sprache, Workflow-Bereich, Notizart und Link-Typ.'},
+  {name:'Demo-Kategorien',          cat:'c38', app:'SMART SnippetFlow', desc:'Startkategorien für lokale Nutzung.'},
+  {name:'src/db/demoData.ts',       cat:'c38', app:'SMART SnippetFlow', desc:'Initiale Demo-Einträge, Kategorien und Feldoptionen.'},
+
+  // ── Build / Deployment ──
+  {name:'.github/workflows/pages.yml',cat:'c27',app:'SMART SnippetFlow', desc:'GitHub Actions Build-Workflow. Baut die Web-App und lädt dist als Artefakt hoch.'},
+  {name:'npm run build',            cat:'c27', app:'SMART SnippetFlow', desc:'TypeScript-Check plus Vite Production Build.'},
+  {name:'npm run build:web',        cat:'c27', app:'SMART SnippetFlow', desc:'Web-Build für CI/Vercel.'},
+  {name:'Vercel',                   cat:'c27', app:'SMART SnippetFlow', desc:'Zielplattform für die Web-App inklusive /api/anthropic/messages Serverless Route.'},
+  {name:'vite.config.ts',           cat:'c27', app:'SMART SnippetFlow', desc:'Vite-Konfiguration, Alias @, React Plugin, GitHub-Pages-Basis optional und Build-Time-Defines für Supabase/Trial-Credits.'},
+
+  // ── Lokale Starter / App-Launcher ──
+  {name:'macOS Launcher',           cat:'c39', app:'SMART SnippetFlow', desc:'App-Bundle unter launchers/mac/SMART SnippetFlow.app. Startet lokalen Server und öffnet http://127.0.0.1:4827/.'},
+  {name:'Native macOS Launcher',    cat:'c39', app:'SMART SnippetFlow', desc:'Kleines C-Programm im App-Bundle: prüft Port 4827, startet Node-Server und öffnet Browser.'},
+  {name:'scripts/create-local-launchers.mjs',cat:'c39',app:'SMART SnippetFlow', desc:'Erzeugt macOS- und Windows-Starter.'},
+  {name:'scripts/generate-icons.mjs',cat:'c39',app:'SMART SnippetFlow', desc:'Erzeugt App-Icons für Build/Public.'},
+  {name:'Windows Launcher (SF)',    cat:'c39', app:'SMART SnippetFlow', desc:'VBScript unter launchers/windows/SMART SnippetFlow.vbs.'},
+
+  // ── Assets / Manifest ──
+  {name:'build/icon.icns / .ico',   cat:'c40', app:'SMART SnippetFlow', desc:'Launcher- und Plattform-Icons für macOS und Windows.'},
+  {name:'Favicons / Icons',         cat:'c40', app:'SMART SnippetFlow', desc:'favicon.ico, 16/32px Favicons, Apple Touch Icon, 192px und 512px Icons.'},
+  {name:'public/site.webmanifest',  cat:'c40', app:'SMART SnippetFlow', desc:'Web-App-Manifest für Browser/PWA-Integration.'},
+  {name:'src/assets/app-logo.png',  cat:'c40', app:'SMART SnippetFlow', desc:'App-Logo im Header und UI.'},
+
+  // ── Dokumentation ──
+  {name:'docs/generated/*.docx',    cat:'c41', app:'SMART SnippetFlow', desc:'Generierte Dokumentationen zu Modulübersicht, Lizenz-/Vertriebsarchitektur und Lizenz-Workflow.'},
+  {name:'docs/license-system-architecture.md',cat:'c41',app:'SMART SnippetFlow', desc:'Architektur der Lizenzintegration.'},
+  {name:'README.md',                cat:'c41', app:'SMART SnippetFlow', desc:'Projektübersicht, Start und lokale Nutzung.'},
+
+  // ── Nicht direkt verbaut ──
+  {name:'Kein Electron',            cat:'c21', app:'SMART SnippetFlow', desc:'Keine Electron-App. Lokale Nutzung erfolgt über Node-Server plus Browser/Starter.'},
+  {name:'Keine Cloud-Synchronisierung',cat:'c21',app:'SMART SnippetFlow', desc:'Einträge bleiben lokal im Browser. Gerätewechsel erfolgt über JSON-Export/Import.'},
+  {name:'Kein direkter Anthropic-Aufruf',cat:'c21',app:'SMART SnippetFlow', desc:'Anthropic-Aufrufe laufen über lokalen Proxy, Vercel API Route oder Supabase Edge Function.'},
+  {name:'Kein GitHub-Pages-API',    cat:'c21', app:'SMART SnippetFlow', desc:'GitHub Pages kann die Vercel API Route nicht ausführen und ist deshalb nicht Ziel der produktiven KI-Nutzung.'},
+  {name:'Kein Supabase-Zwang lokal',cat:'c21', app:'SMART SnippetFlow', desc:'Lokaler Eigennutzungsmodus erlaubt Nutzung mit eigenem API-Key unter 127.0.0.1:4827.'},
+  {name:'Keine Variantenbildung (außer Prompt)',cat:'c21',app:'SMART SnippetFlow', desc:'Prompt-Varianten sind bewusst auf den Typ Prompt beschränkt.'},
+
+
 ];
 
 // ── STATE ──────────────────────────────────────────────────
@@ -533,7 +788,7 @@ function render(){
 
 function card(i){
   const cat = catObj(i.cat);
-  const appColor = i.app === 'SMART ReplySuite' ? 'c7' : 'c1';
+  const appColor = i.app === 'SMART ReplySuite' ? 'c7' : i.app === 'SMART SnippetFlow' ? 'c8' : 'c1';
   return `<div class="item-card">
     <div>
       <div class="item-name">${i.name}</div>
