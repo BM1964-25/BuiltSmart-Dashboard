@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Claude-Ökosystem – Schulungsunterlage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0B1D35;--navy2:#1E3A5F;--gold:#C9A84C;--gold2:#E8C97A;
+  --cream:#F8F5EE;--cream2:#EDE9DF;--white:#FFFFFF;--muted:#5A6A7E;
+  --border:rgba(11,29,53,.10);
+  --c1:#1755A6;--c2:#1A7F5A;--c3:#6B3FA0;--c4:#C9A84C;--c5:#B84B2F;--c6:#2E7D6E;--c7:#1E3A5F;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.65;}
+
+/* HEADER */
+.page-header{background:var(--navy);padding:44px 48px 52px;position:relative;overflow:hidden;}
+.page-header::after{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:rgba(201,168,76,.07);}
+.header-badge{display:inline-block;background:rgba(201,168,76,.2);color:var(--gold2);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.page-header h1{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2;}
+.page-header .subtitle{font-size:13px;color:rgba(255,255,255,.55);max-width:600px;line-height:1.65;margin-bottom:16px;}
+.header-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.header-pill{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);}
+
+/* NAV */
+.top-nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100;overflow-x:auto;}
+.nav-pill{padding:14px 16px;font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;}
+.nav-pill:hover{color:var(--navy);}
+.nav-back{margin-left:auto;font-size:12.5px;font-weight:500;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:5px;padding:14px 0;white-space:nowrap;}
+.nav-back svg{width:13px;height:13px;}
+
+/* CONTENT */
+.content{max-width:960px;margin:0 auto;padding:48px 48px 80px;}
+
+/* INTRO */
+.intro-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:40px;font-size:13.5px;color:var(--muted);line-height:1.7;}
+.intro-box strong{color:var(--navy);}
+
+/* BAUSTEIN SECTION */
+.baustein{margin-bottom:48px;scroll-margin-top:70px;}
+.baustein-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:20px;}
+.baustein-num{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;}
+.baustein-title-wrap h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.baustein-title-wrap .tagline{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* BESCHREIBUNG */
+.baustein-desc{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:18px;font-size:13.5px;color:var(--navy);line-height:1.7;}
+
+/* BEISPIELE */
+.beispiele-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.beispiele{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.beispiel{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;}
+.beispiel-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px;}
+.beispiel-content h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.beispiel-content p{font-size:12.5px;color:var(--muted);line-height:1.55;}
+
+/* KURZ-BOX */
+.kurz-box{border-radius:10px;padding:14px 18px;font-size:13px;line-height:1.6;border-left:3px solid;}
+.kurz-box strong{font-weight:600;}
+
+/* DIVIDER */
+.section-divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+
+/* MCP SECTION */
+.mcp-box{background:var(--navy);border-radius:14px;padding:28px 32px;margin-bottom:40px;}
+.mcp-box h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--gold2);margin-bottom:14px;}
+.mcp-box p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:10px;}
+.mcp-box p:last-child{margin-bottom:0;}
+.mcp-box strong{color:var(--gold2);}
+
+/* ZUSAMMENFASSUNG */
+.summary-section{margin-bottom:40px;}
+.summary-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;font-size:13px;}
+thead tr{background:var(--navy);}
+thead th{padding:13px 18px;color:rgba(255,255,255,.85);font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--cream);}
+tbody td{padding:13px 18px;color:var(--navy);line-height:1.5;}
+tbody td:first-child{font-weight:600;}
+.td-badge{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:8px;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-badge">BuiltSmart AI · Schulungsunterlage</div>
+  <h1>Das Claude-Ökosystem</h1>
+  <div class="subtitle">Sieben Bausteine im Überblick – mit Praxisbeispielen für die Bau- und Immobilienwirtschaft</div>
+  <div class="header-pills">
+    <span class="header-pill">Skills</span>
+    <span class="header-pill">Connectors</span>
+    <span class="header-pill">Plugins</span>
+    <span class="header-pill">Artefakte</span>
+    <span class="header-pill">Claude Design</span>
+    <span class="header-pill">Claude Cowork</span>
+    <span class="header-pill">Claude Code</span>
+  </div>
+</div>
+
+<nav class="top-nav">
+  <a href="#skills"    class="nav-pill">1 · Skills</a>
+  <a href="#connectors" class="nav-pill">2 · Connectors</a>
+  <a href="#plugins"   class="nav-pill">3 · Plugins</a>
+  <a href="#artefakte" class="nav-pill">4 · Artefakte</a>
+  <a href="#design"    class="nav-pill">5 · Design</a>
+  <a href="#cowork"    class="nav-pill">6 · Cowork</a>
+  <a href="#code"      class="nav-pill">7 · Code</a>
+  <a href="#mcp"       class="nav-pill">MCP</a>
+  <a href="#zusammenfassung" class="nav-pill">Zusammenfassung</a>
+  <a href="https://bm1964-25.github.io/BuiltSmart-Dashboard/" class="nav-back">
+    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 2H11V5"/><path d="M11 2L6 7"/><path d="M5 3H2V11H10V8"/></svg>
+    Dashboard
+  </a>
+</nav>
+
+<div class="content">
+
+  <div class="intro-box">
+    Diese Unterlage erklärt die sieben zentralen Erweiterungsmechanismen von Claude – wofür sie jeweils gedacht sind, wie sie sich unterscheiden, und mit je drei konkreten Beispielen aus der Bau- und Immobilienwirtschaft. Am Ende folgt eine Zusammenfassung sowie eine kurze Erklärung des <strong>Model Context Protocol (MCP)</strong>, das mehreren dieser Bausteine zugrunde liegt.
+  </div>
+
+  <!-- ═══ 1. SKILLS ═══ -->
+  <div class="baustein" id="skills">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c1);">1</div>
+      <div class="baustein-title-wrap">
+        <h2>Skills</h2>
+        <div class="tagline">Wissen und Anweisungen – kein Datenzugriff</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Skills sind reine Textanweisungen (SKILL.md-Dateien), die Claude bei Bedarf automatisch in den Kontext lädt. Sie enthalten keine API-Aufrufe und keine Zugangsdaten – nur strukturiertes Wissen darüber, wie eine bestimmte Aufgabe angegangen werden soll. Ein Skill ist damit vergleichbar mit einer wiederverwendbaren Arbeitsanweisung, die man einem neuen Mitarbeiter einmal erklärt und danach nie wieder wiederholen muss.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c1);">1</div>
+        <div class="beispiel-content">
+          <h4>Ausschreibungs-Skill (VOB/A-konform)</h4>
+          <p>Anweisungen, wie Leistungsverzeichnisse strukturiert, Gewerke gegliedert und Nebenangebote formatiert werden sollen. Claude wendet das automatisch an, sobald „LV" oder „Ausschreibung" erwähnt wird.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c1);">2</div>
+        <div class="beispiel-content">
+          <h4>RASCI-Projektreporting-Skill</h4>
+          <p>Ein Skill legt fest, wie Statusberichte, Verantwortlichkeitsmatrizen und Risikoregister aufgebaut sein müssen – Claude produziert Berichte automatisch im richtigen Format, ohne erneute Erklärung.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c1);">3</div>
+        <div class="beispiel-content">
+          <h4>Markensprache-Skill</h4>
+          <p>Ein Skill mit bevorzugtem Ton, Navy/Gold-Designsprache und feststehenden Fachbegriffen, damit jede Content-Erstellung automatisch stilkonform erfolgt.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(23,85,166,.06);border-left-color:var(--c1);">
+      <strong>Kurz:</strong> Skills ersparen wiederholtes Briefing – ideal für alles, was man öfter als zweimal auf die gleiche Art erklärt.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 2. CONNECTORS ═══ -->
+  <div class="baustein" id="connectors">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c2);">2</div>
+      <div class="baustein-title-wrap">
+        <h2>Connectors</h2>
+        <div class="tagline">Zugriff auf externe Daten – live statt Copy-Paste</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Connectors sind OAuth-basierte Verbindungen zu externen Diensten wie Google Drive, Microsoft 365 oder Gmail. Claude agiert dabei mit den Rechten des jeweiligen Nutzers – kein separater Systemzugang, keine geteilten Zugangsdaten. Was der Nutzer nicht sehen kann, kann auch Claude nicht sehen. Der Vorteil: kein manuelles Kopieren von Informationen aus anderen Programmen mehr nötig.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c2);">1</div>
+        <div class="beispiel-content">
+          <h4>Microsoft 365-Connector</h4>
+          <p>Claude liest direkt aus SharePoint/OneDrive gespeicherte Baupläne, Verträge oder Finanzpläne und kann darauf basierend Auswertungen vorschlagen, ohne dass Dateien manuell hochgeladen werden.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c2);">2</div>
+        <div class="beispiel-content">
+          <h4>Gmail/Kalender-Connector</h4>
+          <p>Bei der Durchsetzung von Rechtsansprüchen oder Fristen kann Claude direkt E-Mail-Verläufe mit Anwälten einsehen und Termine für Fristen im Kalender abgleichen.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c2);">3</div>
+        <div class="beispiel-content">
+          <h4>Google Drive-Connector für Projektunterlagen</h4>
+          <p>Bei Kundenprojekten greift ein Connector direkt auf freigegebene Ordner mit Leistungsverzeichnissen zu, damit Angebote mit aktuellen statt veralteten Daten befüllt werden.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(26,127,90,.06);border-left-color:var(--c2);">
+      <strong>Kurz:</strong> Connectors verbinden Claude mit echten, aktuellen Daten aus bestehenden Systemen – ohne Zwischenschritt.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 3. PLUGINS ═══ -->
+  <div class="baustein" id="plugins">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c3);">3</div>
+      <div class="baustein-title-wrap">
+        <h2>Plugins</h2>
+        <div class="tagline">Fertige Pakete aus Skills, Connectors und Befehlen</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Plugins bündeln Skills, Connectors, Slash-Commands und Sub-Agenten in einem einzigen installierbaren Paket für eine bestimmte Rolle oder Funktion. Statt jede Komponente einzeln einzurichten, installiert man ein Plugin und hat ein einsatzbereites Setup ab der ersten Konversation. Aktuell primär über Claude Cowork und Desktop nutzbar.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c3);">1</div>
+        <div class="beispiel-content">
+          <h4>Vertriebs-Plugin</h4>
+          <p>Bündelt CRM-Connector, Skills für ein Sales-Konzept und Slash-Commands wie /angebot-erstellen – für die Neukundenakquise von SaaS-Produkten in gestaffelten Preismodellen.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c3);">2</div>
+        <div class="beispiel-content">
+          <h4>Legal/Vertragsmanagement-Plugin</h4>
+          <p>Für die strukturierte Verfolgung eines Rechtsfalls: Dokumenten-Connector zur Kanzlei-Korrespondenz, Skill für Fristenmanagement, Befehle für Eskalationsschreiben.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c3);">3</div>
+        <div class="beispiel-content">
+          <h4>Finance/Reporting-Plugin</h4>
+          <p>Für Management-Reports und Finanzplanung: Excel-Connector, Skill für ein festgelegtes Reporting-Format, automatisierte Kennzahlen-Updates.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(107,63,160,.06);border-left-color:var(--c3);">
+      <strong>Kurz:</strong> Plugins sind sinnvoll, sobald mehrere Personen dasselbe Setup nutzen sollen oder ein komplettes Werkzeugpaket für eine Funktion gebraucht wird.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 4. ARTEFAKTE ═══ -->
+  <div class="baustein" id="artefakte">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c4);color:var(--navy);">4</div>
+      <div class="baustein-title-wrap">
+        <h2>Artefakte</h2>
+        <div class="tagline">Eigenständige, bearbeitbare Ergebnisse im Chat</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Artefakte sind eigenständige Dokumente oder Mini-Apps, die Claude in einem separaten Fenster neben dem Chat erstellt – Code, Dokumente, Diagramme, interaktive HTML- oder React-Anwendungen. Sie lassen sich live bearbeiten, iterieren, herunterladen und veröffentlichen (Link teilen), und können sogar Claudes eigene API einbinden, um KI-gestützte Mini-Apps zu bauen.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c4);">1</div>
+        <div class="beispiel-content">
+          <h4>Interaktiver Preiskalkulator</h4>
+          <p>Statt einer statischen Excel-Tabelle entsteht ein HTML-Rechner, in den Interessenten Nutzerzahl und Funktionsumfang eingeben und live den passenden Tarif sehen.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c4);">2</div>
+        <div class="beispiel-content">
+          <h4>Management-Dashboard statt statischem Bericht</h4>
+          <p>Ein Berichts-Template entsteht als interaktives Dashboard-Artefakt mit Filterfunktion nach Gewerk oder Zeitraum, das Stakeholder direkt durchklicken können.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c4);">3</div>
+        <div class="beispiel-content">
+          <h4>Business-Plan-Visualisierung</h4>
+          <p>Aus einem Finanzplan entsteht ein Artefakt mit interaktivem Chart und Reglern für Annahmen, sodass bei Förderanträgen live verschiedene Szenarien durchgespielt werden können.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(201,168,76,.08);border-left-color:var(--c4);">
+      <strong>Kurz:</strong> Artefakte eignen sich für alles, das eigenständig, wiederverwendbar und visuell aufbereitet sein soll – nicht für kurze Chat-Antworten.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 5. CLAUDE DESIGN ═══ -->
+  <div class="baustein" id="design">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c5);">5</div>
+      <div class="baustein-title-wrap">
+        <h2>Claude Design</h2>
+        <div class="tagline">Schnelle visuelle Iteration ohne festen Styleguide</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Claude Design unterstützt bei Prototypen, Mockups und visueller Gestaltung – Landingpages, Präsentationen, One-Pager. Es nutzt unter anderem die Canva-Integration und ist besonders stark, wenn noch kein festes Designsystem existiert oder mehrere visuelle Richtungen schnell durchgespielt werden sollen.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c5);">1</div>
+        <div class="beispiel-content">
+          <h4>Produktbroschüren für eine Markteinführung</h4>
+          <p>Für die Einführung eines Produktportfolios lassen sich mit Design schnell mehrere visuelle One-Pager-Entwürfe durchspielen, bevor man sich auf ein finales Layout festlegt.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c5);">2</div>
+        <div class="beispiel-content">
+          <h4>Explorative Cover-Varianten für Fachbücher</h4>
+          <p>Für einen neuen Buchtitel lassen sich mit Design mehrere Cover-Stilrichtungen parallel visualisieren, bevor die finale Version in die Produktion geht.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c5);">3</div>
+        <div class="beispiel-content">
+          <h4>Messestand- oder Event-Visuals</h4>
+          <p>Für Branchenevents lassen sich schnell Poster- oder Roll-up-Entwürfe mit der eigenen Markensprache erstellen, ohne dafür extra einen Grafiker zu briefen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(184,75,47,.06);border-left-color:var(--c5);">
+      <strong>Kurz:</strong> Design lohnt sich, solange noch kein etabliertes Designsystem existiert – bei bereits feststehender Markensprache reicht oft Chat oder Code.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 6. CLAUDE COWORK ═══ -->
+  <div class="baustein" id="cowork">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c6);">6</div>
+      <div class="baustein-title-wrap">
+        <h2>Claude Cowork</h2>
+        <div class="tagline">Automatisierte, mehrschrittige Wissensarbeit</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Cowork ist ein agentisches Wissensarbeits-Tool für Nicht-Entwickler, das mehrschrittige Aufgaben über mehrere Tools und Datenquellen hinweg orchestriert – Recherche, Analyse, wiederkehrende Auswertungen. Es kann auf Connectors, Skills und sogar Claude Code als Werkzeuge zugreifen und läuft eigenständig über mehrere Schritte hinweg.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c6);">1</div>
+        <div class="beispiel-content">
+          <h4>Automatisierte Wochenstatus-Zusammenstellung</h4>
+          <p>Statt Zahlen manuell einzutragen, zieht Cowork Fortschrittsdaten aus verbundenen Quellen zusammen (E-Mails, Kalendertermine, Projektmanagement-Software) und schlägt einen Berichtsentwurf zur Freigabe vor.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c6);">2</div>
+        <div class="beispiel-content">
+          <h4>Marktrecherche für Investorenansprache</h4>
+          <p>Für eine Kapitalakquise recherchiert Cowork eigenständig aktuelle Marktdaten zu Benchmarks, Wettbewerbern und Branchentrends und erstellt daraus eine strukturierte Grundlage für Pitch-Unterlagen.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c6);">3</div>
+        <div class="beispiel-content">
+          <h4>Laufende Überwachung eines Rechtsfalls</h4>
+          <p>Cowork prüft periodisch neue Handelsregister-Einträge oder fristrelevante Ereignisse und benachrichtigt proaktiv, statt dass dies manuell nachverfolgt werden muss.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(46,125,110,.06);border-left-color:var(--c6);">
+      <strong>Kurz:</strong> Cowork lohnt sich, sobald Datenerfassung oder Recherche automatisiert statt manuell erfolgen soll.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ 7. CLAUDE CODE ═══ -->
+  <div class="baustein" id="code">
+    <div class="baustein-header">
+      <div class="baustein-num" style="background:var(--c7);">7</div>
+      <div class="baustein-title-wrap">
+        <h2>Claude Code</h2>
+        <div class="tagline">Belastbare, versionierte Softwareentwicklung</div>
+      </div>
+    </div>
+
+    <div class="baustein-desc">
+      Claude Code ist ein agentisches Coding-Tool, mit dem Programmieraufgaben von der Kommandozeile, Desktop- oder Mobile-App aus delegiert werden. Anders als Artefakte arbeitet es mit echten Dateien, Versionskontrolle (Git) und kann direkt in bestehende Repositories und Deploy-Pipelines schreiben.
+    </div>
+
+    <div class="beispiele-title">Beispiele für die Bau- und Immobilienwirtschaft</div>
+    <div class="beispiele">
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c7);">1</div>
+        <div class="beispiel-content">
+          <h4>Produktivpflege bestehender Web-Tools</h4>
+          <p>Statt Aktualisierungen über manuelles API-Handling vorzunehmen, verwaltet Claude Code das gesamte Repository lokal, committet Änderungen sauber versioniert und pusht direkt – inklusive Rollback bei Fehlern.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c7);">2</div>
+        <div class="beispiel-content">
+          <h4>Robuste Mandanten-Anwendungen</h4>
+          <p>Ein gewachsenes Single-File-HTML-Tool lässt sich in saubere Module aufteilen (Datenverarbeitung, Auswertungslogik, Mandantentrennung als eigene Dateien) – Voraussetzung für den produktiven Verkauf an Kunden.</p>
+        </div>
+      </div>
+      <div class="beispiel">
+        <div class="beispiel-num" style="background:var(--c7);">3</div>
+        <div class="beispiel-content">
+          <h4>Automatisierte Tests für kritische Berechnungen</h4>
+          <p>Für ein internes Tool, das Fristen oder Kennzahlen berechnet, schreibt Claude Code Testfälle für verschiedene Szenarien, damit Rechenfehler nicht erst im Ernstfall auffallen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kurz-box" style="background:rgba(30,58,95,.06);border-left-color:var(--c7);">
+      <strong>Kurz:</strong> Code lohnt sich, sobald ein Tool über den Prototyp hinauswächst und dauerhaft, versioniert und robust betrieben werden soll.
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ═══ MCP ═══ -->
+  <div id="mcp" style="scroll-margin-top:70px;">
+    <div class="mcp-box">
+      <h2>Was ist ein MCP-Server?</h2>
+      <p>MCP (Model Context Protocol) ist ein offener Standard, den Anthropic im November 2024 veröffentlicht hat, um KI-Systeme mit Datenquellen zu verbinden und fragmentierte Einzelintegrationen durch ein einheitliches Protokoll zu ersetzen.</p>
+      <p>Ein <strong>MCP-Server</strong> ist die technische „Steckdose": Er stellt Claude eine standardisierte Schnittstelle zur Verfügung, über die Daten abgerufen oder Aktionen in einem externen System ausgeführt werden können – unabhängig davon, ob es sich um Google Drive, ein CRM oder eine selbst gebaute Anwendung handelt.</p>
+      <p>MCP ist damit die gemeinsame technische Grundlage: <strong>Connectors sind letztlich MCP-Server</strong>, die von den jeweiligen Anbietern betrieben werden. Auch eigene Systeme lassen sich über einen selbst gebauten MCP-Server anbinden, um direkten, standardisierten Zugriff zu ermöglichen, statt manuell über Programmierschnittstellen zu arbeiten.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ZUSAMMENFASSUNG ═══ -->
+  <div class="summary-section" id="zusammenfassung" style="scroll-margin-top:70px;">
+    <h2 class="summary-title">Zusammenfassung</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Baustein</th>
+          <th>Kernfrage</th>
+          <th>Typischer Einsatz</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(23,85,166,.1);color:var(--c1);">Skills</span></td>
+          <td>Wie soll Claude etwas tun?</td>
+          <td>Wiederkehrende Anweisungen, Formate, Stil</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(26,127,90,.1);color:var(--c2);">Connectors</span></td>
+          <td>Auf welche Daten soll Claude zugreifen?</td>
+          <td>Live-Zugriff auf bestehende Systeme</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(107,63,160,.1);color:var(--c3);">Plugins</span></td>
+          <td>Wie bekommt ein Team ein fertiges Setup?</td>
+          <td>Gebündeltes Paket für eine Rolle/Funktion</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(201,168,76,.12);color:#8A620A;">Artefakte</span></td>
+          <td>Wie entsteht ein eigenständiges Ergebnis?</td>
+          <td>Dokumente, Dashboards, Mini-Apps im Chat</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(184,75,47,.1);color:var(--c5);">Design</span></td>
+          <td>Wie sieht etwas Neues visuell aus?</td>
+          <td>Prototypen, Mockups, Layout-Varianten</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(46,125,110,.1);color:var(--c6);">Cowork</span></td>
+          <td>Wie läuft eine Aufgabe automatisiert ab?</td>
+          <td>Mehrschrittige Recherche und Auswertung</td>
+        </tr>
+        <tr>
+          <td><span class="td-badge" style="background:rgba(30,58,95,.1);color:var(--c7);">Code</span></td>
+          <td>Wie wird ein Tool belastbar betrieben?</td>
+          <td>Versionierte, produktive Softwareentwicklung</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end content -->
+
+<div style="padding:20px 48px;border-top:1px solid var(--border);background:var(--white);font-size:11.5px;color:var(--muted);">
+  BuiltSmart AI · Schulungsunterlage · Stand Juli 2026 · bm1964-25.github.io/BuiltSmart-Dashboard
+</div>
+
+</body>
+</html>
