@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App-Inventar – Technische Bausteine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0B1D35;--navy2:#1E3A5F;--gold:#C9A84C;--gold2:#E8C97A;
+  --cream:#F8F5EE;--cream2:#EDE9DF;--white:#FFFFFF;--muted:#5A6A7E;
+  --border:rgba(11,29,53,.10);--border2:rgba(11,29,53,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--navy);-webkit-font-smoothing:antialiased;}
+
+/* HEADER */
+.page-header{background:var(--navy);padding:40px 48px 44px;position:relative;overflow:hidden;}
+.page-header::after{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(201,168,76,.07);}
+.header-badge{display:inline-block;background:rgba(201,168,76,.2);color:var(--gold2);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.page-header h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;}
+.page-header p{font-size:13px;color:rgba(255,255,255,.55);max-width:580px;line-height:1.65;}
+
+/* TOOLBAR */
+.toolbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;min-height:56px;}
+.toolbar-back{font-size:12.5px;font-weight:500;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:5px;padding:8px 0;white-space:nowrap;border-right:1px solid var(--border);padding-right:16px;margin-right:4px;}
+.toolbar-back svg{width:13px;height:13px;}
+.search-box{position:relative;flex:1;min-width:180px;max-width:280px;}
+.search-box input{width:100%;border:1px solid var(--border2);border-radius:8px;padding:7px 10px 7px 32px;font-size:12.5px;font-family:'Inter',sans-serif;background:var(--cream);color:var(--navy);outline:none;transition:border-color .15s;}
+.search-box input:focus{border-color:var(--gold);}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;}
+.sort-btn{font-size:12px;font-weight:500;padding:6px 12px;border-radius:7px;border:1px solid var(--border2);background:var(--cream);color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.sort-btn.active,.sort-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.sort-btn svg{width:12px;height:12px;}
+.app-filter{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.app-chip{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--cream);color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;}
+.app-chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.result-count{font-size:11.5px;color:var(--muted);margin-left:8px;white-space:nowrap;}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:32px 48px 80px;}
+
+/* CATEGORY SECTION */
+.cat-section{margin-bottom:36px;}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.cat-stripe{width:3px;height:18px;border-radius:2px;flex-shrink:0;}
+.cat-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy);}
+.cat-divider{flex:1;height:1px;background:var(--border);}
+.cat-count{font-size:11px;color:var(--muted);background:var(--cream2);border-radius:20px;padding:2px 9px;font-weight:500;}
+
+/* ITEM GRID */
+.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;}
+.item-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:start;transition:border-color .15s,box-shadow .15s;}
+.item-card:hover{border-color:var(--border2);box-shadow:0 3px 12px rgba(11,29,53,.07);}
+.item-name{font-size:12.5px;font-weight:600;color:var(--navy);line-height:1.3;word-break:break-word;}
+.item-app{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;padding:2px 7px;border-radius:5px;display:inline-block;}
+.item-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+/* CAT COLORS */
+.c1{background:rgba(23,85,166,.1);color:#1755A6;}
+.c2{background:rgba(184,75,47,.1);color:#B84B2F;}
+.c3{background:rgba(26,127,90,.1);color:#1A7F5A;}
+.c4{background:rgba(107,63,160,.1);color:#6B3FA0;}
+.c5{background:rgba(201,168,76,.12);color:#8A620A;}
+.c6{background:rgba(92,63,163,.1);color:#5C3FA3;}
+.c7{background:rgba(158,47,110,.1);color:#9E2F6E;}
+.c8{background:rgba(46,125,110,.1);color:#2E7D6E;}
+.c9{background:rgba(30,58,95,.1);color:#1E3A5F;}
+.c10{background:rgba(11,29,53,.08);color:#5A6A7E;}
+.c11{background:rgba(184,75,47,.08);color:#8B3020;}
+.c12{background:rgba(23,85,166,.08);color:#0F3D7A;}
+
+.stripe1{background:#1755A6;} .stripe2{background:#B84B2F;} .stripe3{background:#1A7F5A;}
+.stripe4{background:#6B3FA0;} .stripe5{background:#C9A84C;} .stripe6{background:#5C3FA3;}
+.stripe7{background:#9E2F6E;} .stripe8{background:#2E7D6E;} .stripe9{background:#1E3A5F;}
+.stripe10{background:#5A6A7E;} .stripe11{background:#8B3020;} .stripe12{background:#0F3D7A;}
+
+/* EMPTY */
+.empty{padding:60px;text-align:center;color:var(--muted);font-size:14px;}
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-badge">BuiltSmart AI · Technische Dokumentation</div>
+  <h1>App-Inventar – Technische Bausteine</h1>
+  <p>Alle verbauten Tools, APIs und Funktionen je App. Filterbar nach App und Kategorie, sortierbar nach Name oder Kategorie.</p>
+</div>
+
+<div class="toolbar">
+  <a href="https://bm1964-25.github.io/BuiltSmart-Dashboard/" class="toolbar-back">
+    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 2H11V5"/><path d="M11 2L6 7"/><path d="M5 3H2V11H10V8"/></svg>
+    Dashboard
+  </a>
+  <div class="search-box">
+    <svg viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
+    <input type="text" id="searchInput" placeholder="Suchen …" oninput="render()">
+  </div>
+  <button class="sort-btn" id="sortCat" onclick="setSort('cat')" title="Nach Kategorie sortieren">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="4" x2="12" y2="4"/><line x1="2" y1="7" x2="9" y2="7"/><line x1="2" y1="10" x2="6" y2="10"/></svg>
+    Kategorie
+  </button>
+  <button class="sort-btn active" id="sortAz" onclick="setSort('az')" title="Alphabetisch sortieren">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="4" x2="12" y2="4"/><line x1="2" y1="8" x2="8" y2="8"/><line x1="2" y1="12" x2="5" y2="12"/></svg>
+    A–Z
+  </button>
+  <div class="app-filter" id="appFilter"></div>
+  <span class="result-count" id="resultCount"></span>
+</div>
+
+<div class="content" id="mainContent"></div>
+
+<script>
+const CATS = [
+  { id:'c1',  label:'Externe Bibliotheken',         stripe:'stripe1'  },
+  { id:'c2',  label:'Backend, Zugriff und KI',      stripe:'stripe2'  },
+  { id:'c3',  label:'Browser-Speicher',             stripe:'stripe3'  },
+  { id:'c4',  label:'API-Key-Verwaltung',           stripe:'stripe4'  },
+  { id:'c5',  label:'JSON und KI-Antwort-Recovery', stripe:'stripe5'  },
+  { id:'c6',  label:'Analyse-Checkpoints',          stripe:'stripe6'  },
+  { id:'c7',  label:'Dokumentenimport',             stripe:'stripe7'  },
+  { id:'c8',  label:'Kategorien und Vorbereitung',  stripe:'stripe8'  },
+  { id:'c9',  label:'Rechtskontext und Qualität',   stripe:'stripe9'  },
+  { id:'c10', label:'Klausel- und Batchpipeline',   stripe:'stripe10' },
+  { id:'c11', label:'Analysephasen',                stripe:'stripe11' },
+  { id:'c12', label:'Score und Priorisierung',      stripe:'stripe12' },
+  { id:'c13', label:'Dashboard und Ergebnisanzeige',stripe:'stripe1'  },
+  { id:'c14', label:'Aktenverwaltung',              stripe:'stripe2'  },
+  { id:'c15', label:'JSON- und CSV-Datenmanagement',stripe:'stripe3'  },
+  { id:'c16', label:'Bericht, Druck und HTML',      stripe:'stripe4'  },
+  { id:'c17', label:'Lizenzbereich',                stripe:'stripe5'  },
+  { id:'c18', label:'UI, Navigation und Workflow',  stripe:'stripe6'  },
+  { id:'c19', label:'Hilfesystem',                  stripe:'stripe7'  },
+  { id:'c20', label:'Hilfsfunktionen',              stripe:'stripe8'  },
+  { id:'c21', label:'Nicht direkt verbaut',         stripe:'stripe9'  },
+];
+
+const APPS = ['SMART RISK Vertragsanalyse'];
+
+const ITEMS = [
+  // ── 1. Externe Bibliotheken ──
+  {name:'PDF.js',                   cat:'c1',  app:'SMART RISK Vertragsanalyse', desc:'Liest PDF-Dateien im Browser aus. Wird für normalen PDF-Text und Seitenzugriff genutzt.'},
+  {name:'Tesseract.js',             cat:'c1',  app:'SMART RISK Vertragsanalyse', desc:'OCR-Erkennung für PDFs oder Scans. Wird verwendet, wenn ein PDF keinen verwertbaren Text enthält.'},
+  {name:'Mammoth.js',               cat:'c1',  app:'SMART RISK Vertragsanalyse', desc:'Liest .docx-Dateien aus. Extrahiert Rohtext aus Word-Dokumenten.'},
+  {name:'Chart.js',                 cat:'c1',  app:'SMART RISK Vertragsanalyse', desc:'Visualisiert Dashboard-Charts, z.B. Schweregrade und Kategorien. Enthält Fallback-Darstellungen, falls Charts nicht verfügbar sind.'},
+  {name:'builtsmartLicense.js',     cat:'c1',  app:'SMART RISK Vertragsanalyse', desc:'Lokaler BuiltSmart-Lizenzclient. Dient als Schnittstelle für Supabase-, Lizenz-, Trial- und Credit-Logik.'},
+  // ── 2. Backend, Zugriff und KI ──
+  {name:'Supabase-Konfiguration',   cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Wird über BUILTSMART_LICENSE_CONFIG vorbereitet. Enthält supabaseUrl, supabaseAnonKey, appKey, Checkout-URL und AI-Function-URL. Aktuell lokal nicht aktiv konfiguriert.'},
+  {name:'window.BuiltSmartLicense', cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Client für Magic-Link-Login. Prüft Lizenzstatus. Verwaltet Free Trial, Lizenzschlüssel, Checkout, AI-Credits und eigenen API-Key.'},
+  {name:'Anthropic API',            cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'KI-Schnittstelle für die Vertragsanalyse. Wird direkt über fetch(\'https://api.anthropic.com/v1/messages\') angesprochen.'},
+  {name:'Modell claude-sonnet-5',   cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Aktuell verwendetes KI-Modell für alle Analysephasen.'},
+  {name:'claudeCall()',             cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Zentrale Funktion für direkte Anthropic-Anfragen. Nutzt dynamischen Timeout bis maximal 300 Sekunden.'},
+  {name:'runAiRequest()',           cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Schaltet zwischen lokalem Anthropic API-Key und BuiltSmart AI Function um.'},
+  {name:'testAnthropicConnection()',cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Prüft, ob der gespeicherte Anthropic API-Key funktioniert.'},
+  {name:'confirmAiUsage()',         cat:'c2',  app:'SMART RISK Vertragsanalyse', desc:'Schätzt bzw. bestätigt KI-Nutzung und Credits vor einer Aktion.'},
+  // ── 3. Browser-Speicher ──
+  {name:'localStorage',             cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Dauerhafte lokale Speicherung im Browser. Speichert Akten, API-Key, Vertragsentwurf, Analyse-Checkpoints und App-Daten.'},
+  {name:'sessionStorage',           cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Kurzlebige Speicherung pro Browser-Sitzung. Speichert Verbindungsstatus des API-Keys, letzter Check und Analyse-Zwischenstände.'},
+  {name:'getStorage()',             cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Prüft, ob localStorage oder sessionStorage verfügbar ist.'},
+  {name:'storageGet()',             cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Liest Werte robust aus dem Browser-Speicher.'},
+  {name:'storageSet()',             cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Schreibt Werte robust in den Browser-Speicher.'},
+  {name:'storageRemove()',          cat:'c3',  app:'SMART RISK Vertragsanalyse', desc:'Löscht Werte aus dem Browser-Speicher.'},
+  // ── 4. API-Key-Verwaltung ──
+  {name:'checkApiKeyConnection()',  cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Prüft die Verbindung zur Anthropic API.'},
+  {name:'connectApiKey()',          cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Aktiviert die Verbindung mit dem API-Key.'},
+  {name:'deleteApiKey()',           cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Löscht API-Key und Sessionstatus vollständig.'},
+  {name:'disconnectApiKey()',       cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Trennt nur die Session-Verbindung. Der gespeicherte API-Key bleibt erhalten.'},
+  {name:'getApiKeyValue()',         cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Liefert den aktuellen API-Key aus Eingabe oder Speicher.'},
+  {name:'initApiKeyManager()',      cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Initialisiert Eingabefeld, Buttons und gespeicherten API-Key.'},
+  {name:'isValidAnthropicKey()',    cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Prüft das Format, insbesondere den Präfix sk-ant-.'},
+  {name:'maskApiKey()',             cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Maskiert gespeicherte API-Keys für die Anzeige.'},
+  {name:'renderApiKeyManager()',    cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Status, Buttons, Maskierung und Seitenanzeige.'},
+  {name:'saveApiKey()',             cat:'c4',  app:'SMART RISK Vertragsanalyse', desc:'Speichert den API-Key lokal. Prüft danach automatisch die Verbindung.'},
+  // ── 5. JSON und KI-Antwort-Recovery ──
+  {name:'extractAiText()',          cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Vereinheitlicht Text aus Anthropic- und BuiltSmart-AI-Antworten.'},
+  {name:'extractCompleteJsonObjects()',cat:'c5',app:'SMART RISK Vertragsanalyse', desc:'Extrahiert einzelne vollständige JSON-Objekte aus einem Array-Text.'},
+  {name:'extractJsonNumberField()', cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Rettet einzelne Zahlenfelder aus kaputtem JSON.'},
+  {name:'extractJsonStringField()', cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Rettet einzelne String-Felder aus kaputtem JSON.'},
+  {name:'JSON',                     cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Hauptformat für KI-Antworten, Checkpoints, Aktenarchiv, Import/Export und Analyseobjekte.'},
+  {name:'parseCategoryResponse()',  cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Liest KI-Kategorien. Bei Fehlern werden Standardkategorien genutzt.'},
+  {name:'parseFindingsResponse()',  cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Liest Findings aus Phase 2. Nutzt Recovery bei JSON-Problemen.'},
+  {name:'parsePhase3Response()',    cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Spezieller Recovery-Parser für Score, Score-Begründung, Summary, Wechselwirkungen und Empfehlungen.'},
+  {name:'recoverArrayResponse()',   cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Rettet Arrays aus teildefekten KI-Antworten. Wird für findings, recommendations oder interactions genutzt.'},
+  {name:'safeParseJSON()',          cat:'c5',  app:'SMART RISK Vertragsanalyse', desc:'Robuster JSON-Parser für KI-Antworten. Entfernt Markdown-Codeblöcke, sucht JSON-Objektbereiche und repariert einfache abgeschnittene Strukturen.'},
+  // ── 6. Analyse-Checkpoints ──
+  {name:'analysisCheckpointKey()',  cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Speicher-Key für Analyse-Zwischenstände.'},
+  {name:'clearAnalysisCheckpoint()',cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Entfernt Analyse-Zwischenstände.'},
+  {name:'currentAnalysisRun',       cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Hält Laufstatus, Signatur und Fortsetzungsinformationen.'},
+  {name:'loadAnalysisCheckpoint()', cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Lädt gespeicherte Zwischenstände.'},
+  {name:'makeAnalysisSignature()',  cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Erzeugt eine Signatur für Vertrag und Analyse. Dadurch werden passende Checkpoints wiedererkannt.'},
+  {name:'saveAnalysisCheckpoint()', cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Speichert Zwischenstände lokal und in der Session.'},
+  {name:'simpleHash()',             cat:'c6',  app:'SMART RISK Vertragsanalyse', desc:'Erstellt eine einfache Signaturgrundlage.'},
+  // ── 7. Dokumentenimport ──
+  {name:'clearDraftDocument()',     cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Löscht den lokalen Vertragsentwurf.'},
+  {name:'Drag & Drop',              cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Ermöglicht Dateiablage direkt in der App.'},
+  {name:'extractDocxText()',        cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Extrahiert DOCX-Text via Mammoth.js.'},
+  {name:'extractPdfText()',         cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Extrahiert PDF-Text via PDF.js.'},
+  {name:'FileReader',               cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Browser-API für Dateiimport.'},
+  {name:'OCR-Fallback',             cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Rendert PDF-Seiten auf Canvas. Nutzt Tesseract.js, wenn kein Text extrahiert werden kann.'},
+  {name:'Paste aus Zwischenablage', cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Ermöglicht das Einfügen von Vertragstext direkt aus der Zwischenablage.'},
+  {name:'pasteTextAsDocument()',    cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Übernimmt eingefügten Text als Vertragsdokument.'},
+  {name:'processFile()',            cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Verteilt Dateiimport nach Typ: PDF, DOCX oder TXT.'},
+  {name:'restoreDraftDocument()',   cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Stellt einen lokalen Vertragsentwurf wieder her.'},
+  {name:'saveDraftDocument()',      cat:'c7',  app:'SMART RISK Vertragsanalyse', desc:'Speichert einen lokalen Vertragsentwurf.'},
+  // ── 8. Kategorien und Vorbereitung ──
+  {name:'getCategoryChecks()',      cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Liefert Prüffokus zu einer Kategorie.'},
+  {name:'getCategoryDescription()', cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Liefert Beschreibung zu einer Kategorie.'},
+  {name:'getDefaultCategories()',   cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Liefert Fallback-Kategorien, wenn die KI-Kategorisierung fehlschlägt.'},
+  {name:'inferContractType()',      cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Ermittelt oder normalisiert den Vertragstyp.'},
+  {name:'renderCatChips()',         cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Rendert auswählbare Prüfkategorien.'},
+  {name:'runStep1()',               cat:'c8',  app:'SMART RISK Vertragsanalyse', desc:'Ermittelt Vertragstyp und Prüfkategorien per KI.'},
+  // ── 9. Rechtskontext und Qualität ──
+  {name:'downgradeConfidence()',    cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Senkt Sicherheitseinstufungen bei Unsicherheit ab.'},
+  {name:'getContractQualityType()', cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Ordnet Vertragstyp für Qualitätslogik ein.'},
+  {name:'getLegalContext()',        cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Liefert passende Rechtsgrundlagen für Prompts.'},
+  {name:'getTypeQualityChecklist()',cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Liefert vertragstypspezifische Qualitätsprüfung.'},
+  {name:'LEGAL_CONTEXT',            cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Hinterlegte Rechtskontexte je Vertragstyp.'},
+  {name:'normalizeConfidence()',    cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Vereinheitlicht Sicherheitseinstufungen.'},
+  {name:'normalizeFindingQuality()',cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Normalisiert Qualität, Confidence und Prüfpflichten von Findings.'},
+  {name:'normalizeReviewRequired()',cat:'c9',  app:'SMART RISK Vertragsanalyse', desc:'Ermittelt, ob Fachprüfung erforderlich ist.'},
+  // ── 10. Klausel- und Batchpipeline ──
+  {name:'analyzeLegalBatch()',      cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Führt juristische KI-Prüfung eines Klausel-Batches aus.'},
+  {name:'clauseTextForPrompt()',    cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Bereitet Klauseltext abhängig von Bedeutung für KI-Prompts vor.'},
+  {name:'decorateBatchFindings()',  cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Ergänzt Batch- und Klausel-Metadaten an Findings.'},
+  {name:'getBatchProfile()',        cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Beschreibt aktuelle Batchstruktur.'},
+  {name:'getClauseBatchSize()',     cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Bestimmt dynamische Batchgröße nach durchschnittlicher Klausellänge.'},
+  {name:'getFocusedLegalContext()', cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Reduziert Rechtskontext passend zum aktuellen Batch.'},
+  {name:'inferClauseCategory()',    cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Schätzt Kategorie einer Klausel.'},
+  {name:'inferClauseSignificance()',cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Schätzt Bedeutung einer Klausel.'},
+  {name:'makeClause()',             cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Baut ein Klauselobjekt mit Titel, Text, Kategorie und Bedeutung.'},
+  {name:'makeClauseBatches()',      cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Bündelt Klauseln in kleine Analysepakete.'},
+  {name:'makeBatchErrorFinding()',  cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Erzeugt technischen Analysehinweis bei Batchfehlern.'},
+  {name:'normalizeClauseText()',    cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Kürzt und normalisiert Klauseltext für Prompts.'},
+  {name:'sameBatchProfile()',       cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Erkennt, ob alte Checkpoints zur aktuellen Batchstruktur passen.'},
+  {name:'splitContractIntoClauses()',cat:'c10',app:'SMART RISK Vertragsanalyse', desc:'Zerlegt den Vertrag in Abschnitte und Klauseln.'},
+  {name:'splitLongSection()',       cat:'c10', app:'SMART RISK Vertragsanalyse', desc:'Teilt zu lange Abschnitte weiter auf.'},
+  // ── 11. Analysephasen ──
+  {name:'Phase 1',                  cat:'c11', app:'SMART RISK Vertragsanalyse', desc:'Vertrag strukturieren und Klauseln vorbereiten.'},
+  {name:'Phase 2',                  cat:'c11', app:'SMART RISK Vertragsanalyse', desc:'Klauselbasierte juristische Batchprüfung.'},
+  {name:'Phase 3',                  cat:'c11', app:'SMART RISK Vertragsanalyse', desc:'Wechselwirkungen, Score und Zusammenfassung.'},
+  {name:'Phase 4',                  cat:'c11', app:'SMART RISK Vertragsanalyse', desc:'Empfehlungen, wenn nicht ausreichend aus Phase 3 vorhanden.'},
+  {name:'runStep2()',               cat:'c11', app:'SMART RISK Vertragsanalyse', desc:'Hauptanalysefunktion. Steuert Phase 1 bis 4, Checkpoints, Batchanalyse, Score, Empfehlungen und Rendering.'},
+  {name:'summarizeFindingsForPrompt()',cat:'c11',app:'SMART RISK Vertragsanalyse', desc:'Verdichtet Findings für spätere KI-Phasen.'},
+  // ── 12. Score und Priorisierung ──
+  {name:'calibrateRiskScore()',     cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'App-eigene Score-Kalibrierung. Besonders wichtig für Arbeitsverträge, damit AGB-/Transparenzrisiken nicht automatisch wie existenzielle Risiken bewertet werden.'},
+  {name:'inferScoreFromFindings()', cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Leitet Score aus vorhandenen Findings ab, z.B. bei Import.'},
+  {name:'normalizeScoreValue()',    cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Normalisiert Scores aus Akten oder Importdaten.'},
+  {name:'priorityRank()',           cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Sortiert Empfehlungen nach Priorität.'},
+  {name:'scoreCalibrationNote()',   cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Erzeugt Hinweis zur Score-Anpassung.'},
+  {name:'severityRank()',           cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Sortiert Schweregrade.'},
+  {name:'severityText()',           cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Liefert Text zu Schweregraden.'},
+  {name:'urgencyRank()',            cat:'c12', app:'SMART RISK Vertragsanalyse', desc:'Sortiert Empfehlungen nach Dringlichkeit.'},
+  // ── 13. Dashboard und Ergebnisanzeige ──
+  {name:'applyFundFilters()',       cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Filtert Fundliste nach Suchbegriff, Schweregrad und Kategorie.'},
+  {name:'applyRecommendationFilters()',cat:'c13',app:'SMART RISK Vertragsanalyse', desc:'Filtert Empfehlungen.'},
+  {name:'getQualityChecklistData()',cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Berechnet Status der Ergebnisqualität.'},
+  {name:'refreshDashboardCharts()', cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Charts.'},
+  {name:'renderChartFallbacks()',   cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Ersatzanzeige ohne Chart.js.'},
+  {name:'renderDashboard()',        cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Rendert Score, Summary, Schweregrade und Top-Prioritäten.'},
+  {name:'renderDashboardInsights()',cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Zeigt Score-Begründung und Zusatzinformationen.'},
+  {name:'renderQualityChecklist()', cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Rendert Ergebnis-Check mit Plausibilitäts- und Qualitätspunkten.'},
+  {name:'renderRecs()',             cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Rendert Empfehlungen.'},
+  {name:'renderTable()',            cat:'c13', app:'SMART RISK Vertragsanalyse', desc:'Rendert die Fundliste.'},
+  {name:'updateFundCategoryFilter()',cat:'c13',app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Kategorie-Filter.'},
+  {name:'updateRecommendationMeta()',cat:'c13',app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Zähler und Metadaten.'},
+  // ── 14. Aktenverwaltung ──
+  {name:'buildCasePayload()',       cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Baut Speicherobjekt aus aktuellem Analysezustand.'},
+  {name:'caseStoreKey()',           cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Speicher-Key für lokale Akten.'},
+  {name:'changeCaseStatus()',       cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Ändert Status einer Akte.'},
+  {name:'closeCaseOverlay()',       cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Schließt die Aktenübersicht.'},
+  {name:'deleteCase()',             cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Löscht lokale Akte.'},
+  {name:'editCaseNotes()',          cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Bearbeitet Notizen einer Akte.'},
+  {name:'getLocalCases()',          cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Liest lokale Akten aus localStorage.'},
+  {name:'loadCase()',               cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Lädt gespeicherte Akte in die App.'},
+  {name:'normalizeCase()',          cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Normalisiert alte und neue Aktenformate.'},
+  {name:'openCaseOverlay()',        cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Öffnet die Aktenübersicht.'},
+  {name:'renderCaseList()',         cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Rendert gespeicherte Akten.'},
+  {name:'saveCurrentCase()',        cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Speichert aktuelle Analyse als Akte.'},
+  {name:'setLocalCases()',          cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Speichert lokale Akten in localStorage.'},
+  {name:'upsertCase()',             cat:'c14', app:'SMART RISK Vertragsanalyse', desc:'Fügt eine Akte ein oder aktualisiert eine bestehende.'},
+  // ── 15. JSON- und CSV-Datenmanagement ──
+  {name:'applyArchiveImport()',     cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Führt Archivimport aus.'},
+  {name:'Blob',                     cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Erzeugt herunterladbare JSON-, CSV- und HTML-Dateien.'},
+  {name:'csvEscape()',              cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Maskiert CSV-Zellen.'},
+  {name:'downloadImportTemplate()', cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Lädt CSV-Vorlage herunter.'},
+  {name:'downloadTextFile()',       cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Erstellt Datei per Blob und Download-Link.'},
+  {name:'exportLocalData()',        cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Exportiert lokales Aktenarchiv als JSON.'},
+  {name:'exportResultsCsv()',       cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Exportiert Findings als CSV.'},
+  {name:'importLocalData()',        cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Importiert JSON-Archiv oder ältere Datenformate.'},
+  {name:'importParameterCsv()',     cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Importiert Kategorien oder Parameter aus CSV.'},
+  {name:'importRiskCsv()',          cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Importiert Risikofundstellen aus CSV.'},
+  {name:'openArchiveImportDialog()',cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Auswahl beim Import: ergänzen oder ersetzen.'},
+  {name:'parseCsv()',               cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Eigener CSV-Parser.'},
+  {name:'resetLocalProjectData()',  cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Leert aktuelle Akte. Gespeicherte Akten, API-Key und Lizenzdaten bleiben erhalten.'},
+  {name:'toCsv()',                  cat:'c15', app:'SMART RISK Vertragsanalyse', desc:'Wandelt Daten in CSV.'},
+  // ── 16. Bericht, Druck und HTML ──
+  {name:'Blob (HTML-Export)',       cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Erzeugt herunterladbare HTML-Berichtsdateien.'},
+  {name:'buildReportHtml()',        cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Erstellt vollständigen Bericht inklusive Print-CSS.'},
+  {name:'downloadInlineReport()',   cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Speichert HTML-Bericht.'},
+  {name:'downloadReportHtml()',     cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Speichert Bericht als .html-Datei.'},
+  {name:'focusReportWindow()',      cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Versucht, den neuen Berichtstab zu fokussieren.'},
+  {name:'getReportData()',          cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Normalisiert Daten für Bericht.'},
+  {name:'iframe srcdoc',            cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Integrierte HTML-Berichtsvorschau direkt in der App.'},
+  {name:'normalizeGermanReportText()',cat:'c16',app:'SMART RISK Vertragsanalyse', desc:'Korrigiert und normalisiert Berichtstexte.'},
+  {name:'openAnalysisReport()',     cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Baut Bericht als neues Fenster oder nutzt Fallback-Download.'},
+  {name:'openInlineReportWindow()', cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Öffnet Bericht in neuem Tab oder Fenster.'},
+  {name:'printInlineReport()',      cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Druckt oder erstellt PDF über Browserdruckdialog.'},
+  {name:'showInlineAnalysisReport()',cat:'c16',app:'SMART RISK Vertragsanalyse', desc:'Erzeugt Berichtsvorschau in der App.'},
+  {name:'window.print()',           cat:'c16', app:'SMART RISK Vertragsanalyse', desc:'Browserdruck und PDF-Ausgabe.'},
+  // ── 17. Lizenzbereich ──
+  {name:'ensureAppAccess()',        cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Prüft, ob Analyse gestartet werden darf.'},
+  {name:'getAnalysisReadiness()',   cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Prüft Dokument, Kategorien, KI-Zugang und Perspektive.'},
+  {name:'handleBuyLicense()',       cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Checkout für Jahreslizenz.'},
+  {name:'handleLicenseLogout()',    cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Logout aus Lizenz-Account.'},
+  {name:'handleMagicLogin()',       cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Magic-Link-Login.'},
+  {name:'handleRedeemLicense()',    cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Lizenzschlüssel aktivieren.'},
+  {name:'handleStartTrial()',       cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Free Trial starten.'},
+  {name:'hasLocalAiFallback()',     cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Erlaubt lokalen Testmodus bei eigenem API-Key, wenn Supabase nicht konfiguriert ist.'},
+  {name:'initLicenseUi()',          cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Initialisiert Lizenz-Buttons und Status.'},
+  {name:'refreshLicenseStatus()',   cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Holt Nutzer-, Lizenz- und Creditstatus.'},
+  {name:'renderLicenseUi()',        cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Rendert Lizenzstatus und Buttonzustände.'},
+  {name:'updateAppAccessControls()',cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Aktiviert oder deaktiviert App-Funktionen abhängig von Lizenz und API.'},
+  {name:'updateAnalysisReadiness()',cat:'c17', app:'SMART RISK Vertragsanalyse', desc:'Rendert Bereitschaftscheck.'},
+  // ── 18. UI, Navigation und Workflow ──
+  {name:'activateTab()',            cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Wechsel zwischen Dashboard, Fundliste und Empfehlungen.'},
+  {name:'clearInsertedText()',      cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Entfernt eingefügten Text.'},
+  {name:'clearLoadedFile()',        cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Entfernt geladene Datei.'},
+  {name:'mountWorkspaceSteps()',    cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Baut und ordnet Workflowbereiche.'},
+  {name:'resetAnalysisProgress()',  cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Setzt Fortschrittsanzeige zurück.'},
+  {name:'resetDocumentUi()',        cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Setzt Dokumentbereich zurück.'},
+  {name:'setAiWorking()',           cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Zeigt KI-Arbeitsstatus.'},
+  {name:'setAnalysisProgress()',    cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Fortschrittsanzeige während Analyse.'},
+  {name:'setDocumentLabel()',       cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Dateiname und Dokumentstatus in der UI.'},
+  {name:'setPip()',                 cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Setzt Statusanzeige für Workflow-Schritte.'},
+  {name:'setSt()',                  cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Setzt Statusanzeige für Analysephasen.'},
+  {name:'setStatus()',              cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Header-Statusbadge.'},
+  {name:'setWorkspaceStep()',       cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Wechsel zwischen Vertrag vorbereiten, Analyse starten und Ergebnisse prüfen.'},
+  {name:'showSystemPanel()',        cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Öffnet API, Datenmanagement oder Hilfe.'},
+  {name:'updateDocumentClearButtons()',cat:'c18',app:'SMART RISK Vertragsanalyse', desc:'Steuert Löschbuttons.'},
+  {name:'updatePrepareNextButton()',cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Aktiviert Weiter-Button nach Vorbereitung.'},
+  {name:'updateResultAreaVisibility()',cat:'c18',app:'SMART RISK Vertragsanalyse', desc:'Steuert Sichtbarkeit der Ergebnisbereiche.'},
+  {name:'updateWorkflowStatuses()', cat:'c18', app:'SMART RISK Vertragsanalyse', desc:'Aktualisiert Schrittstatus.'},
+  // ── 19. Hilfesystem ──
+  {name:'closeHelp()',              cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Schließt Hilfeoverlay.'},
+  {name:'filterHelp()',             cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Suchfunktion in der Hilfe.'},
+  {name:'HELP_SECTIONS',            cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Eingebaute Hilfetexte.'},
+  {name:'openHelp()',               cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Öffnet Hilfeoverlay.'},
+  {name:'renderHelp()',             cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Rendert Hilfe.'},
+  {name:'setHelpSection()',         cat:'c19', app:'SMART RISK Vertragsanalyse', desc:'Wählt Hilfekapitel.'},
+  // ── 20. Hilfsfunktionen ──
+  {name:'esc()',                    cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'HTML-Escaping gegen kaputte oder unsichere Darstellung.'},
+  {name:'iconEye()',                cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'Icon für API-Key anzeigen.'},
+  {name:'iconEyeOff()',             cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'Icon für API-Key verbergen.'},
+  {name:'iconTrash()',              cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'Icon für API-Key löschen.'},
+  {name:'sleep()',                  cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'Kleine Wartefunktion.'},
+  {name:'stripTags()',              cat:'c20', app:'SMART RISK Vertragsanalyse', desc:'Entfernt HTML-Tags aus Text.'},
+  // ── 21. Nicht direkt verbaut ──
+  {name:'Kein aktiver Supabase-Betrieb',cat:'c21',app:'SMART RISK Vertragsanalyse', desc:'Supabase ist vorbereitet. Ohne konfigurierte URL und Anon-Key ist Supabase lokal nicht aktiv.'},
+  {name:'Kein Framework',           cat:'c21', app:'SMART RISK Vertragsanalyse', desc:'Keine React-, Vue- oder Angular-Struktur. Die App ist eine reine HTML-, CSS- und JavaScript-App.'},
+  {name:'Kein Serverzwang',         cat:'c21', app:'SMART RISK Vertragsanalyse', desc:'Die App läuft grundsätzlich als lokale file://-HTML-Datei. Voraussetzung: Browser, CDN-Quellen und API-Zugriffe sind erreichbar.'},
+];
+
+// ── STATE ──────────────────────────────────────────────────
+let sortMode = 'az';       // 'az' | 'cat'
+let activeApp = 'all';
+
+function catObj(id){ return CATS.find(c=>c.id===id)||{label:'',stripe:'stripe1'}; }
+
+// ── APP FILTER CHIPS ────────────────────────────────────────
+function buildAppFilter(){
+  const el = document.getElementById('appFilter');
+  let h = `<button class="app-chip active" data-app="all" onclick="setApp('all',this)">Alle Apps</button>`;
+  APPS.forEach(a => h += `<button class="app-chip" data-app="${a}" onclick="setApp('${a}',this)">${a}</button>`);
+  el.innerHTML = h;
+}
+function setApp(app, btn){
+  activeApp = app;
+  document.querySelectorAll('.app-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function setSort(mode){
+  sortMode = mode;
+  document.getElementById('sortAz').classList.toggle('active', mode==='az');
+  document.getElementById('sortCat').classList.toggle('active', mode==='cat');
+  render();
+}
+
+// ── RENDER ──────────────────────────────────────────────────
+function render(){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  let items = ITEMS.filter(i => {
+    if(activeApp !== 'all' && i.app !== activeApp) return false;
+    if(!q) return true;
+    return i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || catObj(i.cat).label.toLowerCase().includes(q);
+  });
+
+  document.getElementById('resultCount').textContent = items.length + ' Einträge';
+  const container = document.getElementById('mainContent');
+
+  if(!items.length){
+    container.innerHTML = '<div class="empty">Keine Treffer für diese Auswahl.</div>';
+    return;
+  }
+
+  if(sortMode === 'az'){
+    // Alphabetisch — eine einzige A–Z Sektion
+    items.sort((a,b)=>a.name.localeCompare(b.name,'de'));
+    container.innerHTML = `<div class="item-grid">${items.map(card).join('')}</div>`;
+  } else {
+    // Nach Kategorie gruppiert
+    const grouped = {};
+    items.forEach(i => { if(!grouped[i.cat]) grouped[i.cat]=[]; grouped[i.cat].push(i); });
+    // Preserve category order
+    let html = '';
+    CATS.forEach(cat => {
+      const grp = grouped[cat.id];
+      if(!grp) return;
+      grp.sort((a,b)=>a.name.localeCompare(b.name,'de'));
+      html += `
+        <div class="cat-section">
+          <div class="cat-header">
+            <span class="cat-stripe ${cat.stripe}"></span>
+            <span class="cat-title">${cat.label}</span>
+            <span class="cat-divider"></span>
+            <span class="cat-count">${grp.length}</span>
+          </div>
+          <div class="item-grid">${grp.map(card).join('')}</div>
+        </div>`;
+    });
+    container.innerHTML = html;
+  }
+}
+
+function card(i){
+  const cat = catObj(i.cat);
+  const appColor = 'c1'; // could vary per app later
+  return `<div class="item-card">
+    <div>
+      <div class="item-name">${i.name}</div>
+      <span class="item-app ${appColor}">${i.app.replace('SMART RISK ','')}</span>
+    </div>
+    <div class="item-desc">${i.desc}</div>
+  </div>`;
+}
+
+buildAppFilter();
+render();
+</script>
+</body>
+</html>
