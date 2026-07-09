@@ -224,6 +224,7 @@ tbody td:first-child { font-weight: 600; }
   <a href="#cowork"     class="nav-pill">Cowork</a>
   <a href="#code"       class="nav-pill">Code</a>
   <a href="#automation" class="nav-pill">Automation</a>
+  <a href="#datenquellen" class="nav-pill">Datenquellen & MCP</a>
   <a href="#matrix"     class="nav-pill">Vergleichsmatrix</a>
   <a href="#workflows"  class="nav-pill">Workflows</a>
   <a href="#start"      class="nav-pill">So starten Sie</a>
@@ -1044,6 +1045,419 @@ tbody td:first-child { font-weight: 600; }
   </div>
 
 </div>
+
+
+<hr class="section-divider">
+
+<!-- ═══════════ DATENQUELLEN & MCP ═══════════ -->
+<div class="feature-section" id="datenquellen">
+  <div class="feature-header">
+    <div class="feature-icon" style="background:rgba(23,85,166,.1);color:var(--c-art);">
+      <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <ellipse cx="14" cy="8" rx="9" ry="4"/>
+        <path d="M5 8v5c0 2.2 4 4 9 4s9-1.8 9-4V8"/>
+        <path d="M5 13v5c0 2.2 4 4 9 4s9-1.8 9-4v-5"/>
+      </svg>
+    </div>
+    <div class="feature-title-wrap">
+      <h2>Datenquellen und MCP-Connectors</h2>
+      <div class="subtitle">Wo Claude Daten lesen kann – ohne n8n, Make oder Zapier</div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="konkret-box" style="background:rgba(23,85,166,.06);border-left:4px solid var(--c-art);">
+    <div class="konkret-label" style="color:var(--c-art);">Das Wichtigste zuerst</div>
+    <p>Du hast bereits Google Kalender und Gmail mit Claude ausgelesen – direkt in Claude Desktop, ohne Zwischendienst. Das ist der richtige Weg. <strong>MCP-Connectors verbinden Claude direkt mit Datenquellen</strong> – kein n8n, kein Make, kein Zapier, kein monatliches Abo bei einem Automatisierungstool. Claude liest, verarbeitet und antwortet direkt. Diese Seite erklärt ausführlich welche Quellen so funktionieren, wie der Einstieg jeweils aussieht und was du konkret damit tun kannst.</p>
+  </div>
+
+  <!-- WAS IST MCP -->
+  <div style="background:var(--navy);border-radius:14px;padding:28px 32px;margin-bottom:28px;">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px;">Technischer Hintergrund – einfach erklärt</div>
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:14px;">Was ist ein MCP-Connector?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <p style="font-size:13px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:10px;">MCP steht für <strong style="color:var(--gold2);">Model Context Protocol</strong> – ein offener Standard von Anthropic (November 2024). Ein MCP-Connector ist die „Steckdose" zwischen Claude und einem externen System.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.78);line-height:1.7;">Stell dir vor: Claude ist der Mitarbeiter. Der MCP-Connector ist der Schlüssel, der ihm Zugang zu einem bestimmten System gibt. Mit dem Gmail-Schlüssel kann er Mails lesen. Mit dem Google-Drive-Schlüssel kann er Dateien öffnen. Ohne Schlüssel sieht er nichts.</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--gold2);margin-bottom:10px;">So funktioniert ein MCP-Connector:</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,.75);align-items:flex-start;">
+            <span style="color:var(--gold2);font-weight:700;flex-shrink:0;">1.</span>Du installierst den Connector einmalig in Claude Desktop
+          </div>
+          <div style="display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,.75);align-items:flex-start;">
+            <span style="color:var(--gold2);font-weight:700;flex-shrink:0;">2.</span>Du autorisierst den Zugriff einmalig (z.B. Google-Login)
+          </div>
+          <div style="display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,.75);align-items:flex-start;">
+            <span style="color:var(--gold2);font-weight:700;flex-shrink:0;">3.</span>Ab sofort fragt Claude direkt in diesem System nach
+          </div>
+          <div style="display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,.75);align-items:flex-start;">
+            <span style="color:var(--gold2);font-weight:700;flex-shrink:0;">4.</span>Kein weiterer Dienst, kein Abo, kein Zwischenschritt
+          </div>
+          <div style="display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,.75);align-items:flex-start;">
+            <span style="color:var(--gold2);font-weight:700;flex-shrink:0;">5.</span>Du siehst immer was Claude liest – volle Kontrolle
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BEREITS EINGERICHTET ── -->
+  <div style="background:rgba(26,127,90,.08);border:1px solid rgba(26,127,90,.25);border-radius:14px;padding:22px 26px;margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <span style="font-size:18px;">✓</span>
+      <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--c-skill);">Was du bereits eingerichtet hast und nutzen kannst</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+      <div style="background:var(--white);border-radius:10px;padding:18px 20px;border:1px solid rgba(26,127,90,.2);">
+        <div style="font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;">Gmail</div>
+        <div style="font-size:11px;color:var(--c-skill);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;">✓ Bereits aktiv</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Claude kann deine E-Mails lesen, durchsuchen, zusammenfassen und Antwortentwürfe erstellen – direkt aus deinem Gmail-Postfach.</div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;">Was du jetzt sofort tun kannst:</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Fasse alle E-Mails von Auftraggeber Müller aus den letzten 30 Tagen zusammen"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Welche E-Mails enthalten Fristen oder Deadlines diese Woche?"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Schreib eine Antwort auf die E-Mail von gestern wegen des Nachtrags"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Kategorisiere alle ungelesenen E-Mails nach Dringlichkeit"</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border-radius:10px;padding:18px 20px;border:1px solid rgba(26,127,90,.2);">
+        <div style="font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;">Google Kalender</div>
+        <div style="font-size:11px;color:var(--c-skill);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;">✓ Bereits aktiv</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Claude kann Termine lesen, Wochenplanung erstellen, Konflikte erkennen und neue Termine vorschlagen oder anlegen.</div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;">Was du jetzt sofort tun kannst:</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Erstelle mir eine Übersicht aller Termine nächste Woche mit Vorbereitung"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Welche Fristen aus meinen E-Mails fehlen noch im Kalender?"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Kombiniere Kalender und E-Mails zu einem Wochenstatus-Bericht"</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:6px;"><span style="color:var(--c-skill);">→</span>„Erkenne Terminüberschneidungen und schlage Alternativen vor"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── NÄCHSTE SCHRITTE: GOOGLE DRIVE ── -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Deine nächsten Datenquellen – Schritt für Schritt</div>
+
+  <!-- GOOGLE DRIVE -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:rgba(66,133,244,.08);border-bottom:1px solid rgba(66,133,244,.2);padding:16px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:#4285F4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M6.6 2L2 10l4.4 8H14l4.4-8L14 2H6.6zm1.1 2H13l3.5 6H4.2L7.7 4zm-3.5 8h15.6L16.3 18H7.7L4.2 12z"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);">Google Drive</div>
+        <div style="font-size:12px;color:var(--muted);">Dateien, Ordner, Google Docs, Sheets, Präsentationen – alles was in Drive liegt</div>
+      </div>
+      <div style="margin-left:auto;padding:4px 12px;border-radius:20px;background:rgba(66,133,244,.1);color:#4285F4;font-size:11px;font-weight:600;">Nächster Schritt</div>
+    </div>
+    <div style="padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Was Claude damit kann</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Dokumente aus Drive direkt lesen ohne manuelles Hochladen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Ordner durchsuchen und relevante Dateien finden</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Google Docs zusammenfassen, analysieren, überarbeiten</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Google Sheets auslesen und Daten auswerten</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Neue Dokumente erstellen und direkt in Drive ablegen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#4285F4;font-weight:700;flex-shrink:0;">→</span>Mehrere Dateien gleichzeitig vergleichen und auswerten</div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Konkrete Prompts die du dann nutzen kannst:</div>
+        <div style="background:var(--navy);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Lies alle PDFs im Ordner 'Projektunterlagen München' und erstelle eine Mängelübersicht"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Vergleiche den Vertrag mit Auftragnehmer A und B aus meinem Drive"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Suche alle Dokumente die das Wort 'Nachtrag' enthalten und fasse sie zusammen"</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">So richtest du es ein</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#4285F4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Claude Desktop öffnen → Einstellungen → Connectors → Google Drive suchen</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#4285F4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">„Verbinden" klicken → Google-Account auswählen → Zugriffsrechte bestätigen</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#4285F4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Fertig. Ab sofort kannst du im Chat auf dein Drive zugreifen – einfach fragen</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;background:rgba(66,133,244,.06);border:1px solid rgba(66,133,244,.15);border-radius:8px;padding:12px 14px;">
+          <div style="font-size:11.5px;font-weight:600;color:#4285F4;margin-bottom:4px;">Tipp für Bau- und Immobilienprojekte</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Lege in Drive eine klare Ordnerstruktur an: Projekt > Verträge / Nachträge / Gutachten / Protokolle. Claude findet dann gezielt was du brauchst – ohne dass du jede Datei einzeln hochladen musst.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOKALE ORDNER (FINDER/EXPLORER) -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:rgba(90,106,126,.08);border-bottom:1px solid rgba(90,106,126,.2);padding:16px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h3l2 2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);">Lokale Ordner – Finder (Mac) und Explorer (Windows)</div>
+        <div style="font-size:12px;color:var(--muted);">Direkt auf deinem Computer – ohne Cloud, ohne Upload, ohne Internet</div>
+      </div>
+      <div style="margin-left:auto;padding:4px 12px;border-radius:20px;background:rgba(11,29,53,.08);color:var(--navy);font-size:11px;font-weight:600;">Desktop Commander</div>
+    </div>
+    <div style="padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Wie das funktioniert</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;">Über den MCP-Server <strong style="color:var(--navy);">Desktop Commander</strong> kann Claude direkt auf Ordner und Dateien auf deinem Mac oder Windows-PC zugreifen. Du gibst den Pfad an oder sagst Claude wo er suchen soll – er liest die Dateien direkt, ohne dass du sie hochladen musst.</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;">Das funktioniert mit allen gängigen Dateiformaten: PDF, Word, Excel, TXT, CSV, Markdown – und auch mit ganzen Ordnern auf einmal.</div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Konkrete Prompts:</div>
+        <div style="background:var(--navy);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Lies alle PDFs in /Users/bernhard/Projekte/München und erstelle eine Zusammenfassung"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Durchsuche den Ordner Verträge nach allen Dokumenten die 'Nachtrag' im Namen haben"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Vergleiche die zwei Excel-Dateien im Ordner Kalkulation und zeige Unterschiede"</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">So richtest du Desktop Commander ein</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Claude Desktop öffnen → Einstellungen → Connectors → „Desktop Commander" suchen und installieren</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Beim ersten Start fragt Desktop Commander welche Ordner Claude lesen darf – du legst das fest, nicht Claude</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Fertig. Claude kann jetzt direkt auf deine Ordner zugreifen – gib ihm einen Pfad oder einen Ordnernamen</div>
+          </div>
+        </div>
+        <div style="background:rgba(90,106,126,.06);border:1px solid rgba(90,106,126,.15);border-radius:8px;padding:12px 14px;">
+          <div style="font-size:11.5px;font-weight:600;color:var(--navy);margin-bottom:4px;">Sicherheitshinweis</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Claude sieht nur die Ordner die du freigibst. Private Bereiche bleiben privat. Du kannst die Zugriffsrechte jederzeit in den Einstellungen einschränken oder erweitern.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MICROSOFT 365 / SHAREPOINT -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:rgba(0,120,212,.08);border-bottom:1px solid rgba(0,120,212,.2);padding:16px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:#0078D4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);">Microsoft 365 – Outlook, OneDrive und SharePoint</div>
+        <div style="font-size:12px;color:var(--muted);">E-Mails, Kalender, Dateien und Teamordner aus der Microsoft-Welt</div>
+      </div>
+      <div style="margin-left:auto;padding:4px 12px;border-radius:20px;background:rgba(0,120,212,.1);color:#0078D4;font-size:11px;font-weight:600;">Microsoft 365 MCP</div>
+    </div>
+    <div style="padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Was Claude damit kann</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#0078D4;font-weight:700;flex-shrink:0;">→</span><strong style="color:var(--navy);">Outlook:</strong> E-Mails lesen, durchsuchen, Entwürfe erstellen, Fristen erkennen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#0078D4;font-weight:700;flex-shrink:0;">→</span><strong style="color:var(--navy);">Outlook-Kalender:</strong> Termine lesen, Wochenplanung, Konflikte erkennen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#0078D4;font-weight:700;flex-shrink:0;">→</span><strong style="color:var(--navy);">OneDrive:</strong> Persönliche Dateien lesen, Word/Excel/PowerPoint öffnen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#0078D4;font-weight:700;flex-shrink:0;">→</span><strong style="color:var(--navy);">SharePoint:</strong> Team-Dokumentenbibliotheken durchsuchen und lesen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#0078D4;font-weight:700;flex-shrink:0;">→</span><strong style="color:var(--navy);">Teams:</strong> Nachrichten und geteilte Dateien aus Teams-Kanälen</div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Konkrete Prompts für Bau/Immo:</div>
+        <div style="background:var(--navy);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Lies alle Word-Dateien im SharePoint-Ordner 'Projekt Stuttgart' und erstelle ein Inhaltsverzeichnis"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Welche E-Mails in Outlook enthalten das Wort 'Nachtrag' aus den letzten 60 Tagen?"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Kombiniere meinen Outlook-Kalender mit den E-Mails der letzten Woche zu einem Statusbericht"</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">So richtest du es ein</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#0078D4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Claude Desktop → Einstellungen → Connectors → „Microsoft 365" suchen und installieren</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#0078D4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Microsoft-Account einloggen → Zugriffsrechte bestätigen (welche Dienste Claude sehen darf)</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#0078D4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Optional: Einschränken welche SharePoint-Sites und OneDrive-Ordner freigegeben werden</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#0078D4;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">4</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.55;">Fertig – Claude kann jetzt Outlook, OneDrive und SharePoint direkt abfragen</div>
+          </div>
+        </div>
+        <div style="background:rgba(0,120,212,.06);border:1px solid rgba(0,120,212,.15);border-radius:8px;padding:12px 14px;">
+          <div style="font-size:11.5px;font-weight:600;color:#0078D4;margin-bottom:4px;">Wichtig: SharePoint-Berechtigungen</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Claude kann nur SharePoint-Ordner lesen, auf die dein Microsoft-Account Zugriffsrechte hat. Was du nicht sehen kannst, sieht Claude auch nicht. Wenn SharePoint firmenseitig verwaltet wird, braucht die IT-Abteilung die Freigabe.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANVA -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:rgba(0,200,177,.08);border-bottom:1px solid rgba(0,200,177,.2);padding:16px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:#00C8B1;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);">Canva</div>
+        <div style="font-size:12px;color:var(--muted);">Designs lesen, erstellen, anpassen und exportieren – direkt aus Claude heraus</div>
+      </div>
+      <div style="margin-left:auto;padding:4px 12px;border-radius:20px;background:rgba(0,200,177,.1);color:#00A896;font-size:11px;font-weight:600;">Bereits als Connector aktiv</div>
+    </div>
+    <div style="padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Was Claude mit Canva kann</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#00C8B1;font-weight:700;flex-shrink:0;">→</span>Bestehende Canva-Designs öffnen und Inhalte lesen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#00C8B1;font-weight:700;flex-shrink:0;">→</span>Texte in Designs automatisch aktualisieren</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#00C8B1;font-weight:700;flex-shrink:0;">→</span>Neue Designs aus Vorlagen erstellen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#00C8B1;font-weight:700;flex-shrink:0;">→</span>Brand Templates mit aktuellen Inhalten befüllen</div>
+          <div style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:#00C8B1;font-weight:700;flex-shrink:0;">→</span>Designs als PDF, PNG oder PowerPoint exportieren</div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Konkrete Prompts:</div>
+        <div style="background:var(--navy);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Erstelle eine Projektpräsentation in Canva basierend auf meiner Vorlage und fülle sie mit den Daten aus dem Statusbericht"</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,.8);font-style:italic;">"Aktualisiere die Texte in meiner Canva-Broschüre mit den neuen Produktbeschreibungen"</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Kombination mit anderen Quellen</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;">Der größte Nutzen entsteht wenn Canva mit anderen Connectors kombiniert wird:</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--cream2);border-radius:8px;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px;">Google Drive + Canva</div>
+            <div style="font-size:12px;color:var(--muted);">Projektdaten aus Drive lesen → automatisch in Canva-Präsentation einfügen → als PDF exportieren</div>
+          </div>
+          <div style="background:var(--cream2);border-radius:8px;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px;">Gmail + Canva</div>
+            <div style="font-size:12px;color:var(--muted);">Projektstand aus E-Mails zusammenfassen → als gestalteten One-Pager in Canva erstellen</div>
+          </div>
+          <div style="background:var(--cream2);border-radius:8px;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px;">Kalender + Canva</div>
+            <div style="font-size:12px;color:var(--muted);">Wochentermine aus Kalender → als visuellen Wochenplan in Canva erstellen und teilen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZEITSTEUERUNG OHNE DRITTDIENSTE -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.25);padding:16px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--navy);">Zeitgesteuerte Automation – ohne n8n, Make oder Zapier</div>
+        <div style="font-size:12px;color:var(--muted);">Mac Automator oder einfaches Skript als Auslöser – kein Abo, kein Drittdienst</div>
+      </div>
+    </div>
+    <div style="padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Das einzige was fehlt: der Auslöser</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;">Claude läuft nicht von selbst im Hintergrund – er wartet auf eine Anfrage. Der einzige technische Baustein der fehlt ist ein <strong style="color:var(--navy);">Auslöser</strong>, der Claude zu einem bestimmten Zeitpunkt aufruft. Das braucht keinen Drittdienst – auf dem Mac geht das mit Bordmitteln.</div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Option 1 – Mac Automator (kein Code):</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;"><span style="color:var(--gold);font-weight:700;">→</span>Automator öffnen → „Kalenderalarm" als Auslöser wählen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;"><span style="color:var(--gold);font-weight:700;">→</span>Aktion: AppleScript ausführen → Claude Desktop mit Prompt aufrufen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;"><span style="color:var(--gold);font-weight:700;">→</span>Im Google Kalender: wiederkehrender Termin für den Auslöser anlegen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;"><span style="color:var(--gold);font-weight:700;">→</span>Kein Abo, kein Drittdienst – läuft lokal auf deinem Mac</div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px;">Option 2 – Cron-Job (ein Einzeiler):</div>
+        <div style="background:var(--navy);border-radius:8px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.85);font-family:monospace;line-height:1.7;">
+          # Jeden Montag 07:00 Uhr<br>
+          0 7 * * 1 open "claude://run?prompt=Wochenstatus"<br><br>
+          # Terminal: crontab -e<br>
+          # Diese Zeile einfügen – fertig
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;">Was dann automatisch passiert</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;">Sobald der Auslöser feuert, öffnet Claude Desktop mit deinem vorbereiteten Prompt. Claude führt dann vollautomatisch aus:</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">1.</span>Gmail-Connector: E-Mails der letzten 7 Tage lesen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">2.</span>Kalender-Connector: Termine der nächsten Woche lesen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">3.</span>Lokaler Ordner: neue Dokumente seit letzter Woche lesen</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">4.</span>Statusbericht zusammenstellen und als Artefakt speichern</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--gold);font-weight:700;flex-shrink:0;">5.</span>Optional: per Gmail-Connector an definierte Empfänger senden</div>
+        </div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:12px 14px;">
+          <div style="font-size:11.5px;font-weight:600;color:var(--gold);margin-bottom:4px;">Empfehlung für den Einstieg</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Starte zuerst manuell: Führe den Prozess einige Male von Hand durch bis das Ergebnis passt. Erst dann lohnt es den Auslöser einzurichten. Ein gut funktionierender manueller Prozess wird zur guten Automation – ein schlechter bleibt schlecht.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÜBERSICHT ALLE QUELLEN -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Alle Datenquellen im Überblick</div>
+  <table style="margin-bottom:0;">
+    <thead>
+      <tr>
+        <th>Datenquelle</th>
+        <th>Connector / Tool</th>
+        <th>Was Claude lesen kann</th>
+        <th>Einrichtungsaufwand</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Gmail</strong></td>
+        <td><span style="font-size:11px;background:rgba(26,127,90,.1);color:var(--c-skill);padding:2px 8px;border-radius:5px;font-weight:600;">✓ Bereits aktiv</span></td>
+        <td>E-Mails, Anhänge, Labels, Entwürfe</td>
+        <td>Fertig</td>
+      </tr>
+      <tr>
+        <td><strong>Google Kalender</strong></td>
+        <td><span style="font-size:11px;background:rgba(26,127,90,.1);color:var(--c-skill);padding:2px 8px;border-radius:5px;font-weight:600;">✓ Bereits aktiv</span></td>
+        <td>Termine, Teilnehmer, Beschreibungen, Serien</td>
+        <td>Fertig</td>
+      </tr>
+      <tr>
+        <td><strong>Google Drive</strong></td>
+        <td><span style="font-size:11px;background:rgba(66,133,244,.1);color:#4285F4;padding:2px 8px;border-radius:5px;font-weight:600;">Nächster Schritt</span></td>
+        <td>Docs, Sheets, Slides, PDFs, Ordner</td>
+        <td>5 Minuten – Login + Bestätigung</td>
+      </tr>
+      <tr>
+        <td><strong>Lokale Ordner (Mac/PC)</strong></td>
+        <td><span style="font-size:11px;background:rgba(11,29,53,.08);color:var(--navy);padding:2px 8px;border-radius:5px;font-weight:600;">Desktop Commander</span></td>
+        <td>Alle lokalen Dateien: PDF, Word, Excel, TXT</td>
+        <td>10 Minuten – Installation + Ordner freigeben</td>
+      </tr>
+      <tr>
+        <td><strong>Outlook / OneDrive</strong></td>
+        <td><span style="font-size:11px;background:rgba(0,120,212,.1);color:#0078D4;padding:2px 8px;border-radius:5px;font-weight:600;">Microsoft 365 MCP</span></td>
+        <td>E-Mails, Kalender, OneDrive-Dateien</td>
+        <td>10 Minuten – Microsoft-Login</td>
+      </tr>
+      <tr>
+        <td><strong>SharePoint</strong></td>
+        <td><span style="font-size:11px;background:rgba(0,120,212,.1);color:#0078D4;padding:2px 8px;border-radius:5px;font-weight:600;">Microsoft 365 MCP</span></td>
+        <td>Team-Bibliotheken, Projektordner, Dokumente</td>
+        <td>10–30 Min – ggf. IT-Freigabe nötig</td>
+      </tr>
+      <tr>
+        <td><strong>Canva</strong></td>
+        <td><span style="font-size:11px;background:rgba(0,200,177,.1);color:#00A896;padding:2px 8px;border-radius:5px;font-weight:600;">Canva MCP</span></td>
+        <td>Designs, Brand Templates, Exporte</td>
+        <td>5 Minuten – Canva-Login</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
 
 
 <hr class="section-divider">
